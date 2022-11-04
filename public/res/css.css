@@ -1,0 +1,22 @@
+body{
+  font-family:'Work Sans', sans-serif;
+}
+
+.bg-dark{
+  background-color:rgb(20, 36, 56) !important
+}
+
+.bg-darker{
+  background-color:rgb(13, 23, 36)
+}
+
+.bg-lighter{
+  background-color:rgb(28, 52, 83)
+}
+
+a {
+  color:#fff
+}
+a:hover {
+  color:rgb(83, 201, 255)
+}
