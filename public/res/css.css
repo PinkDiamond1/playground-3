@@ -1,5 +1,6 @@
 body{
   font-family:'Work Sans', sans-serif;
+  background-size:cover
 }
 
 .bg-dark{
@@ -13,10 +14,13 @@ body{
 .bg-lighter{
   background-color:rgb(28, 52, 83)
 }
-
 a {
   color:#fff
 }
 a:hover {
   color:rgb(83, 201, 255)
+}
+.btn-primary{
+  background-color: #4b83cc;
+  border-color: #4b83cc;
 }

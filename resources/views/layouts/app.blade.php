@@ -36,7 +36,7 @@
 <body class="bg-dark text-light">
   <nav class="navbar sticky-top navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand text-uppercase" href="/">
         <img src="/res/images/xrplwin_logo_80.webp" alt="W" width="40" height="24" class="d-inline-block align-text-top">
         Playground
       </a>
