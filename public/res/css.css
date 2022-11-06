@@ -1,18 +1,28 @@
+
+
 body{
   font-family:'Work Sans', sans-serif;
-  background-size:cover
+  background-image:url('/res/images/bg.jpg');
+  background-size:cover;
+  background-attachment: fixed;
 }
-
+.bg-black{
+  background-color:rgb(0, 0, 0)
+}
 .bg-dark{
   background-color:rgb(20, 36, 56) !important
 }
-
 .bg-darker{
   background-color:rgb(13, 23, 36)
 }
-
 .bg-lighter{
   background-color:rgb(28, 52, 83)
+}
+.text-lime{
+  color:lime
+}
+.text-red{
+  color:red
 }
 a {
   color:#fff
@@ -23,4 +33,13 @@ a:hover {
 .btn-primary{
   background-color: #4b83cc;
   border-color: #4b83cc;
+}
+.nav.nav-tabs .nav-link{
+  color:#fff
+}
+.nav.nav-tabs .nav-link.active{
+  color:var(--bs-nav-tabs-link-active-color)
+}
+.badge{
+  font-weight: 400;
 }

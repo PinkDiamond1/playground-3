@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/play/xrpl-transaction-mutation-parser', [App\Http\Controllers\PlayController::class, 'txmutationparser'])->name('play.txmutationparser.index');
+Route::get('/play/xrpl-orderbook-reader', [App\Http\Controllers\PlayController::class, 'orderbookreader'])->name('play.orderbookreader.index');

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ccbd816a07b206f971042295b899d1ba",
+    "content-hash": "8259ff55fc44c29930f8b98fb76e65f9",
     "packages": [
         {
             "name": "brick/math",
@@ -61,6 +61,64 @@
                 }
             ],
             "time": "2022-08-10T22:54:19+00:00"
+        },
+        {
+            "name": "brick/money",
+            "version": "0.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/brick/money.git",
+                "reference": "3cac1b014e91718f02724c54c08a2bdcd7cd2340"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/brick/money/zipball/3cac1b014e91718f02724c54c08a2bdcd7cd2340",
+                "reference": "3cac1b014e91718f02724c54c08a2bdcd7cd2340",
+                "shasum": ""
+            },
+            "require": {
+                "brick/math": "~0.10.1",
+                "ext-json": "*",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "brick/varexporter": "~0.3.0",
+                "ext-dom": "*",
+                "ext-pdo": "*",
+                "php-coveralls/php-coveralls": "^2.2",
+                "phpunit/phpunit": "^9.4.3",
+                "vimeo/psalm": "4.23.0"
+            },
+            "suggest": {
+                "ext-intl": "Required to format Money objects"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Brick\\Money\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Money and currency library",
+            "keywords": [
+                "brick",
+                "currency",
+                "money"
+            ],
+            "support": {
+                "issues": "https://github.com/brick/money/issues",
+                "source": "https://github.com/brick/money/tree/0.7.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/BenMorel",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-10-05T22:11:12+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -503,6 +561,65 @@
                 }
             ],
             "time": "2022-02-20T15:07:15+00:00"
+        },
+        {
+            "name": "gndlf/xrpl_php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AlexanderBuzz/xrpl-php.git",
+                "reference": "3699c8d01dafcbca4f18403bde4c3280e164b45a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AlexanderBuzz/xrpl-php/zipball/3699c8d01dafcbca4f18403bde4c3280e164b45a",
+                "reference": "3699c8d01dafcbca4f18403bde4c3280e164b45a",
+                "shasum": ""
+            },
+            "require": {
+                "brick/money": "^0.7.0",
+                "guzzlehttp/guzzle": "^7.4",
+                "php-ds/php-ds": "^1.4",
+                "simplito/elliptic-php": "^1.0"
+            },
+            "require-dev": {
+                "donatj/mock-webserver": "^2.5",
+                "ext-gmp": "*",
+                "ext-sockets": "*",
+                "phpunit/phpunit": "^9",
+                "vimeo/psalm": "^4.23"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Sugar/autofill.php",
+                    "src/Sugar/balances.php",
+                    "src/Sugar/fundWallet.php",
+                    "src/Sugar/getFeeXrp.php",
+                    "src/Sugar/xrpConversion.php"
+                ],
+                "psr-4": {
+                    "XRPL_PHP\\": "src/",
+                    "XRPL_PHP\\Test\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "ISC"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Busse",
+                    "email": "alexander.busse@posteo.net"
+                }
+            ],
+            "description": "PHP Client for the XRP Ledger",
+            "support": {
+                "issues": "https://github.com/AlexanderBuzz/xrpl-php/issues",
+                "source": "https://github.com/AlexanderBuzz/xrpl-php/tree/master"
+            },
+            "time": "2022-11-04T15:13:23+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -2105,6 +2222,61 @@
             "time": "2022-10-28T22:51:32+00:00"
         },
         {
+            "name": "php-ds/php-ds",
+            "version": "v1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-ds/polyfill.git",
+                "reference": "43d2df301a9e2017f67b8c11d94a5222f9c00fd1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-ds/polyfill/zipball/43d2df301a9e2017f67b8c11d94a5222f9c00fd1",
+                "reference": "43d2df301a9e2017f67b8c11d94a5222f9c00fd1",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.0"
+            },
+            "provide": {
+                "ext-ds": "1.3.0"
+            },
+            "require-dev": {
+                "php-ds/tests": "^1.3"
+            },
+            "suggest": {
+                "ext-ds": "to improve performance and reduce memory usage"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ds\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rudi Theunissen",
+                    "email": "rudolf.theunissen@gmail.com"
+                }
+            ],
+            "keywords": [
+                "data structures",
+                "ds",
+                "php",
+                "polyfill"
+            ],
+            "support": {
+                "issues": "https://github.com/php-ds/polyfill/issues",
+                "source": "https://github.com/php-ds/polyfill/tree/v1.4.1"
+            },
+            "time": "2022-03-09T20:39:30+00:00"
+        },
+        {
             "name": "phpoption/phpoption",
             "version": "1.9.0",
             "source": {
@@ -2835,6 +3007,153 @@
                 }
             ],
             "time": "2022-09-16T03:22:46+00:00"
+        },
+        {
+            "name": "simplito/bigint-wrapper-php",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/simplito/bigint-wrapper-php.git",
+                "reference": "cf21ec76d33f103add487b3eadbd9f5033a25930"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/simplito/bigint-wrapper-php/zipball/cf21ec76d33f103add487b3eadbd9f5033a25930",
+                "reference": "cf21ec76d33f103add487b3eadbd9f5033a25930",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BI\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Simplito Team",
+                    "email": "s.smyczynski@simplito.com",
+                    "homepage": "https://simplito.com"
+                }
+            ],
+            "description": "Common interface for php_gmp and php_bcmath modules",
+            "support": {
+                "issues": "https://github.com/simplito/bigint-wrapper-php/issues",
+                "source": "https://github.com/simplito/bigint-wrapper-php/tree/1.0.0"
+            },
+            "time": "2018-02-27T12:38:08+00:00"
+        },
+        {
+            "name": "simplito/bn-php",
+            "version": "1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/simplito/bn-php.git",
+                "reference": "189167f940cdb681288a967b0f4d66de81adcd97"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/simplito/bn-php/zipball/189167f940cdb681288a967b0f4d66de81adcd97",
+                "reference": "189167f940cdb681288a967b0f4d66de81adcd97",
+                "shasum": ""
+            },
+            "require": {
+                "simplito/bigint-wrapper-php": "~1.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BN\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Simplito Team",
+                    "email": "s.smyczynski@simplito.com",
+                    "homepage": "https://simplito.com"
+                }
+            ],
+            "description": "Big number implementation compatible with bn.js",
+            "support": {
+                "issues": "https://github.com/simplito/bn-php/issues",
+                "source": "https://github.com/simplito/bn-php/tree/1.1.3"
+            },
+            "time": "2022-08-12T18:58:14+00:00"
+        },
+        {
+            "name": "simplito/elliptic-php",
+            "version": "1.0.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/simplito/elliptic-php.git",
+                "reference": "a6228f480c729cf8efe2650a617c8500e981716d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/simplito/elliptic-php/zipball/a6228f480c729cf8efe2650a617c8500e981716d",
+                "reference": "a6228f480c729cf8efe2650a617c8500e981716d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gmp": "*",
+                "simplito/bn-php": "~1.1.0"
+            },
+            "require-dev": {
+                "phpbench/phpbench": "@dev",
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Elliptic\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Simplito Team",
+                    "email": "s.smyczynski@simplito.com",
+                    "homepage": "https://simplito.com"
+                }
+            ],
+            "description": "Fast elliptic curve cryptography",
+            "homepage": "https://github.com/simplito/elliptic-php",
+            "keywords": [
+                "Curve25519",
+                "ECDSA",
+                "Ed25519",
+                "EdDSA",
+                "cryptography",
+                "curve",
+                "curve25519-weier",
+                "ecc",
+                "ecdh",
+                "elliptic",
+                "nistp192",
+                "nistp224",
+                "nistp256",
+                "nistp384",
+                "nistp521",
+                "secp256k1"
+            ],
+            "support": {
+                "issues": "https://github.com/simplito/elliptic-php/issues",
+                "source": "https://github.com/simplito/elliptic-php/tree/1.0.10"
+            },
+            "time": "2022-08-12T19:00:25+00:00"
         },
         {
             "name": "symfony/console",
@@ -5364,6 +5683,180 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "xrplwin/xrpl",
+            "version": "v0.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/XRPLWin/XRPL.git",
+                "reference": "842787162169fcc805c536da0550758844b59410"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/XRPLWin/XRPL/zipball/842787162169fcc805c536da0550758844b59410",
+                "reference": "842787162169fcc805c536da0550758844b59410",
+                "shasum": ""
+            },
+            "require": {
+                "brick/math": "^0.10.2",
+                "guzzlehttp/guzzle": "^7.4",
+                "php": "^8.1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "XRPLWin\\XRPL\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Zvjezdan Grgurić",
+                    "email": "zgrguric@xrplwin.com"
+                }
+            ],
+            "description": "A PHP package for communication with the XRP Ledger.",
+            "homepage": "https://github.com/XRPLWin",
+            "keywords": [
+                "composer",
+                "package",
+                "ripple",
+                "rippled",
+                "xrp",
+                "xrpl"
+            ],
+            "support": {
+                "issues": "https://github.com/XRPLWin/XRPL/issues",
+                "source": "https://github.com/XRPLWin/XRPL/tree/v0.0.9"
+            },
+            "time": "2022-11-05T15:00:16+00:00"
+        },
+        {
+            "name": "xrplwin/xrpl-orderbook-reader",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/XRPLWin/XRPL-Orderbook-Reader.git",
+                "reference": "2efc78be409eac3b2a6376090985f503730a52b7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/XRPLWin/XRPL-Orderbook-Reader/zipball/2efc78be409eac3b2a6376090985f503730a52b7",
+                "reference": "2efc78be409eac3b2a6376090985f503730a52b7",
+                "shasum": ""
+            },
+            "require": {
+                "brick/math": "^0.10.2",
+                "php": "^8.1.0",
+                "xrplwin/xrpl": "^0.0"
+            },
+            "require-dev": {
+                "phplucidframe/console-table": "^1.2",
+                "phpunit/phpunit": "^9.5",
+                "symfony/var-dumper": "^6.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "XRPLWin\\XRPLOrderbookReader\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Zvjezdan Grgurić",
+                    "email": "zgrguric@xrplwin.com"
+                }
+            ],
+            "description": "This repository takes XRPL Orderbook (book_offers) datasets and requested volume to exchange and calculates the effective exchange rates based on the requested and available liquidity.",
+            "homepage": "https://github.com/XRPLWin",
+            "keywords": [
+                "Rate",
+                "book_offers",
+                "composer",
+                "exchange",
+                "orders",
+                "package",
+                "ripple",
+                "rippled",
+                "xrp",
+                "xrpl"
+            ],
+            "support": {
+                "issues": "https://github.com/XRPLWin/XRPL-Orderbook-Reader/issues",
+                "source": "https://github.com/XRPLWin/XRPL-Orderbook-Reader/tree/v1.0.4"
+            },
+            "time": "2022-08-29T11:02:06+00:00"
+        },
+        {
+            "name": "xrplwin/xrpl-txmutationparser",
+            "version": "v0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/XRPLWin/XRPL-TxMutationParser.git",
+                "reference": "d7f81968870442e7b244e0310e41ab60cce9b735"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/XRPLWin/XRPL-TxMutationParser/zipball/d7f81968870442e7b244e0310e41ab60cce9b735",
+                "reference": "d7f81968870442e7b244e0310e41ab60cce9b735",
+                "shasum": ""
+            },
+            "require": {
+                "gndlf/xrpl_php": "dev-master",
+                "php": "^8.1.0",
+                "xrplwin/xrpl": "^0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5",
+                "symfony/var-dumper": "^6.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "XRPLWin\\XRPLTxMutatationParser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Zvjezdan Grgurić",
+                    "email": "zgrguric@xrplwin.com"
+                }
+            ],
+            "description": "Parse XRPL transaction to context aware object.",
+            "homepage": "https://github.com/XRPLWin",
+            "keywords": [
+                "composer",
+                "mutation",
+                "package",
+                "parser",
+                "perspective",
+                "ripple",
+                "rippled",
+                "transaction",
+                "tx",
+                "xrp",
+                "xrpl"
+            ],
+            "support": {
+                "issues": "https://github.com/XRPLWin/XRPL-TxMutationParser/issues",
+                "source": "https://github.com/XRPLWin/XRPL-TxMutationParser/tree/v0.0.1"
+            },
+            "time": "2022-11-03T22:08:05+00:00"
         }
     ],
     "packages-dev": [
