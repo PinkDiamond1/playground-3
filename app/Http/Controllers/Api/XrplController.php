@@ -29,18 +29,36 @@ class XrplController extends Controller
     }
     $txresult = $tx->finalResult();
 
+    $TxMutationParser = new TxMutationParser($txresult->Account, $txresult);
+    $parsedTransaction = $TxMutationParser->result();
+
     if(!$reference_account)
       $reference_account = $txresult->Account;
     
-    $TxMutationParser = new TxMutationParser($reference_account, $txresult);
-    $parsedTransaction = $TxMutationParser->result();
+    $parsedRefTransaction = null;
+    if($txresult->Account != $reference_account) {
+      $TxMutationRefParser = new TxMutationParser($reference_account, $txresult);
+      $parsedRefTransaction = $TxMutationRefParser->result();
+    }
 
     $participating_accounts = \array_keys($parsedTransaction['allBalanceChanges']);
+
+    $formatted_currencies = ['XRP' => 'XRP'];
+    //format all currencies
+    foreach($parsedTransaction['allBalanceChanges'] as $v) {
+      foreach($v['balances'] as $b) {
+        if($b['currency'] !== 'XRP') {
+          $formatted_currencies[$b['currency']] = xrp_currency_to_symbol($b['currency'],$b['currency']);
+        }
+      }
+    }
 
     return response()->json([
       'reference_account' => $reference_account,
       'participating_accounts' => $participating_accounts,
       'parsed' => $parsedTransaction,
+      'parsed_ref' => $parsedRefTransaction,
+      'formatted_currencies' => $formatted_currencies,
       'raw' => $txresult
     ]);
   }
