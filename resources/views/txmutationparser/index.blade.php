@@ -45,7 +45,7 @@
   <div class="tab-content mb-5">
     <div class="tab-pane fade show active" id="visualized-tab-pane" role="tabpanel" aria-labelledby="visualized-tab" tabindex="0">
      
-
+  <div id="test123">1.00000012</div>
       <div class="d-flex justify-content-center" id="visualized-tab-pane-loader">
          <div class="spinner-border text-light" role="status">
           <span class="visually-hidden">Loading...</span>
@@ -55,33 +55,89 @@
       <div id="visualized-tab-pane-content" class="d-none text-center">
         <h2 id="v-txtype"></h2>
 
-        <div class="row">
-          <div class="col-6" id="v">
-            Initiator:
-            <h5><div id="v-self" class="badge text-bg-primary"></div></h5>
-            <h4><div id="v-type" class="badge rounded-pill text-bg-success">...</div></h4>
-            
-            <div id="v-eventflow" class="mb-4">-</div>
+        <table class="table table-borderless table-sm text-light">
+          <tr>
+            <td width="50%">
+              <div class="box mb-3">
+                <div class="box-title text-start p-1">
+                  <span class="text-uppercase text-muted "><i class="fa-solid fa-angle-left small"></i>Initiator<i class="fa-solid fa-angle-right text-muted small"></i></span>
+                  <span id="v-self"></span>
+                  <div id="v-type" class="badge rounded-pill text-bg-success float-end">...</div>
+                </div>
 
-            Final balance changes:
-            <h4 id="v-selfbalancechanges" class="mb-4">-</h4>
-          </div>
-          <div class="col-6" id="vref">
-            Perspective:
-            <h5><div id="vref-self" class="badge text-bg-primary"></div></h5>
-            <h4><div id="vref-type" class="badge rounded-pill text-bg-success">...</div></h4>
-            
-            <div id="vref-eventflow" class="mb-4">-</div>
+                <div class="p-1 text-start">
+                  <table class="table table-borderless table-sm">
+                    <tr>
+                      <td width="50%" valign="bottom">
+                        <div class="text-uppercase text-muted text-end small">Balance changes <i class="fa-solid fa-angle-right text-muted small"></i> Value <i class="fa-solid fa-angle-down small"></i></div>
+                      </td>
+                      <td width="50%" valign="bottom">
+                        <div class="text-uppercase text-muted text-start small">Currency <i class="fa-solid fa-angle-down small"></i></div>
+                      </td>
+                    </tr>
+                  </table>
+                  <div id="v-selfbalancechanges"></div>
+                  <div class="text-end box-footer">
+                    <div class="small text-uppercase"><i class="fa-solid fa-angle-left text-muted small"></i>Status : pending<i class="fa-solid fa-angle-right text-muted small"></i> </div>
+                  </div>
+                </div>
+              </div>{{--/end .box--}}
+            </td>
+            <td width="50%">
+              
 
-            Final balance changes:
-            <h4 id="vref-selfbalancechanges" class="mb-4">-</h4>
-          </div>
-        </div>
+              <div class="box mb-3">
+                <div class="box-title text-start p-1">
+                  <span class="text-uppercase text-muted "><i class="fa-solid fa-angle-left small"></i>Perspective<i class="fa-solid fa-angle-right text-muted small"></i></span>
+                  <span id="vref-self"></span>
+                  <div id="vref-type" class="badge rounded-pill text-bg-success float-end">...</div>
+                </div>
 
-        <!--<div><i class="fa-solid fa-arrow-down"></i></div>-->
+                <div class="p-1 text-start">
+                  <table class="table table-borderless table-sm">
+                    <tr>
+                      <td width="50%" valign="bottom">
+                        <div class="text-uppercase text-muted text-end small">Balance changes <i class="fa-solid fa-angle-right text-muted small"></i> Value <i class="fa-solid fa-angle-down small"></i></div>
+                      </td>
+                      <td width="50%" valign="bottom">
+                        <div class="text-uppercase text-muted text-start small">Currency <i class="fa-solid fa-angle-down small"></i></div>
+                      </td>
+                    </tr>
+                  </table>
+                  <div id="vref-selfbalancechanges"></div>
+                  <div class="text-end box-footer">
+                    <div class="small text-uppercase"><i class="fa-solid fa-angle-left text-muted small"></i>Status : pending<i class="fa-solid fa-angle-right text-muted small"></i> </div>
+                  </div>
+                </div>
+              </div>{{--/end .box--}}
 
-        {{--eventFlow--}}
-        <div id="v-eventflow"></div>
+
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <h5>Event flow</h5>
+              <h3><i class="fa-solid fa-angle-down"></i></h3>
+            </td>
+            <td>
+              <h5>Event flow</h5>
+              <h3><i class="fa-solid fa-angle-down"></i></h3>
+            </td>
+          </tr>
+          {{--event flow: start--}}
+          <tr>
+            <td><div id="v-eventflow-start"></div></td>
+            <td><div id="vref-eventflow-start"></div></td>
+          </tr>
+          <tr>
+            <td><div id="v-eventflow-intermediate"></div></td>
+            <td><div id="vref-eventflow-intermediate"></div></td>
+          </tr>
+          <tr>
+            <td><div id="v-eventflow-end"></div></td>
+            <td><div id="vref-eventflow-end"></div></td>
+          </tr>
+        </table>
 
       </div>
 
@@ -99,26 +155,59 @@
 
 </div>
 @endsection
+@push('head')
+<script src="/res/lib/countup/dist/countUp.min.js" type="module"></script>
+{{--<script src="https://unpkg.com/counterup2@2.0.2/dist/index.js"></script>
+https://jsfiddle.net/q9CuK/125/
+--}}
+<style>
+.box {
+  border:solid 1px #58829b;
+  background-color:#0f1c24c9;
+  -webkit-border-bottom-right-radius: 15px;
+  -moz-border-radius-bottomright: 15px;
+  border-bottom-right-radius: 15px;
+}
+.box-title {
+  border: solid 1px #29404f;
+  background-color:#29404f82;
+  margin:3px;
+  -webkit-border-bottom-right-radius: 15px;
+  -moz-border-radius-bottomright: 15px;
+  border-bottom-right-radius: 15px;
+}
+.box-title .text-muted{
+  color:#ffe300 !important
+}
+.box .table{margin:0}
+</style>
+
+@endpush
 @push('javascript')
 @if($hash)
+
 <script>
 var formatted_currencies = {};
 function formatPrice(data)
 {
   var positive = !(data.value.slice(0, 1) === '-');
-
-    r = '<span class="text-'+(positive?'lime':'red')+'">'+(positive?'+':'')+''+data.value+' '+formatCurrency(data.currency)+'<span> '+(data.counterparty? xrpaddress_to_short(data.counterparty):'');
-    return r;
+  var r = '<table class="table table-sm table-borderless p-1 price text-light"><tr>';
+    r += '<td width="50%" align="right" valign="top" class="text-'+(positive?'lime':'red')+'" id="">'+data.value+'</td>';
+    r += '<td align="left" valign="middle">'+formatCurrency(data.currency);
+    if(data.counterparty) {
+      r += '<div class="font-monospace small text-muted">'+xrpaddress_to_short(data.counterparty)+'</div>';
+    }
+    r += '</td>';
+  r += '</tr></table>';
+  return r;
+  return '<span class="text-'+(positive?'lime':'red')+'">'+(positive?'+':'')+''+data.value+' '+formatCurrency(data.currency)+'<span> '+(data.counterparty? xrpaddress_to_short(data.counterparty):'');
 }
 
 function formatCurrency(currency) {
   if(!formatted_currencies[currency])
-    return '<span title="'+currency+'" class="fw-bold">'+currency+'</span>';
-  return '<span title="'+currency+'" class="fw-bold">'+formatted_currencies[currency]+'</span>';
+    return '<span title="'+currency+'">'+currency+'</span>';
+  return '<span title="'+currency+'">'+formatted_currencies[currency]+'</span>';
 }
-//const xw_xrpl_wss_server = "xrplcluster.com";
-//const hash = "{{$hash}}";
-//http://playground.test/play/xrpl-transaction-mutation-parser?ref=rcoreNywaoz2ZCQ8Lg2EbSLnGuRBmun6D
 function visualize(suffix,data,p)
 {
 
@@ -133,85 +222,48 @@ function visualize(suffix,data,p)
   $("#v"+suffix+"-selfbalancechanges").html(balchanges);
 
   //Event flow:
-
-  var eventflow = '';
   if(p.eventFlow.start) {
-    eventflow += '<div><div class="badge text-bg-info">START</div></div>';
-    eventflow += '<div><div class="badge text-bg-secondary">'+p.eventFlow.start.account+'</div></div>';
+    var eventflow = '<div class="box mx-3">';
+    eventflow += '<div class="box-title text-start p-1"><span class="text-uppercase text-muted">Start <i class="fa-solid fa-angle-right text-muted small"></i></span> <span class="small">'+p.eventFlow.start.account+'</span></div>';
     eventflow += '<div>'+formatPrice(p.eventFlow.start.mutation)+'</div>';
+    eventflow += '</div>';
+    $("#v"+suffix+"-eventflow-start").html(eventflow);
   }
   if(p.eventFlow.intermediate) {
-    eventflow += '<div><div class="badge text-bg-info">INTERMEDIATE</div></div>';
-    eventflow += '<div><div class="badge text-bg-secondary">'+p.eventFlow.intermediate.account+'</div></div>';
+    var eventflow = '<div class="box mx-3">';
+    eventflow += '<div class="box-title text-start p-1"><span class="text-uppercase text-muted">Intermediate <i class="fa-solid fa-angle-right text-muted small"></i></span> <span class="small">'+p.eventFlow.intermediate.account+'</span></div>';
     if(p.eventFlow.intermediate.mutations) {
       if(p.eventFlow.intermediate.mutations.in) {
-        eventflow += '<div>IN '+formatPrice(p.eventFlow.intermediate.mutations.in)+'</div>';
+        eventflow += '<div class="text-uppercase text-muted text-center small"><i class="fa-solid fa-angle-left text-muted small"></i>In<i class="fa-solid fa-angle-right text-muted small"></i></div>';
+        eventflow += formatPrice(p.eventFlow.intermediate.mutations.in);
       }
       if(p.eventFlow.intermediate.mutations.out) {
-        eventflow += '<div>OUT '+formatPrice(p.eventFlow.intermediate.mutations.out)+'</div>';
+        eventflow += '<div class="text-uppercase text-muted text-center small"><i class="fa-solid fa-angle-left text-muted small"></i>Out<i class="fa-solid fa-angle-right text-muted small"></i></div>';
+        eventflow += formatPrice(p.eventFlow.intermediate.mutations.out);
       }
     } else {
       alert('no int. mutations');
     }
     //eventflow += p.eventFlow.end.mutation.value+" "+p.eventFlow.end.mutation.currency;
+    eventflow += '</div>';
+    $("#v"+suffix+"-eventflow-intermediate").html(eventflow);
   }
   if(p.eventFlow.end) {
-    eventflow += '<div><div class="badge text-bg-info">END</div></div>';
-    eventflow += '<div><div class="badge text-bg-secondary">'+p.eventFlow.end.account+'</div></div>';
+    var eventflow = '<div class="box mx-3">';
+    eventflow += '<div class="box-title text-start p-1"><span class="text-uppercase text-muted">End <i class="fa-solid fa-angle-right text-muted small"></i></span> <span class="small">'+p.eventFlow.end.account+'</span></div>';
     eventflow += '<div>'+formatPrice(p.eventFlow.end.mutation)+'</div>';
-  }
-  $("#v"+suffix+"-eventflow").html(eventflow);
-  return;
-  
-  
-  
-
-  var balchanges = 'Balance changes:<br>';
-
-  $.each(p.self.balanceChanges,function(k,v){
-    balchanges += '<div>'+formatPrice(v)+'</div>';
-  });
-  /*
-  if(p.eventList.primary) {
-    balchanges += formatPrice(p.eventList.primary);
-  }
-  if(p.eventList.secondary) {
-    balchanges += formatPrice(p.eventList.secondary);
-  }*/
-  $("#v-selfbalancechanges").html(balchanges);
-
-
-
-  
-  //eventflow <div><i class="fa-solid fa-arrow-down"></i>
-  var eventflow = '';
-  if(p.eventFlow.start) {
-    eventflow += '<div><div class="badge text-bg-info">START</div></div>';
-    eventflow += '<div><div class="badge text-bg-secondary">'+p.eventFlow.start.account+'</div></div>';
-    eventflow += '<div>'+formatPrice(p.eventFlow.start.mutation)+'</div>';
-  }
-  if(p.eventFlow.intermediate) {
-    eventflow += '<div><div class="badge text-bg-info">INTERMEDIATE</div></div>';
-    eventflow += '<div><div class="badge text-bg-secondary">'+p.eventFlow.intermediate.account+'</div></div>';
-    if(p.eventFlow.intermediate.mutations) {
-      if(p.eventFlow.intermediate.mutations.in) {
-        eventflow += '<div>'+formatPrice(p.eventFlow.intermediate.mutations.in)+'</div>';
-      }
-      if(p.eventFlow.intermediate.mutations.out) {
-        eventflow += '<div>'+formatPrice(p.eventFlow.intermediate.mutations.out)+'</div>';
-      }
-    } else {
-      alert('no int. mutations');
-    }
-    //eventflow += p.eventFlow.end.mutation.value+" "+p.eventFlow.end.mutation.currency;
-  }
-  if(p.eventFlow.end) {
-    eventflow += '<div><div class="badge text-bg-info">END</div></div>';
-    eventflow += '<div><div class="badge text-bg-secondary">'+p.eventFlow.end.account+'</div></div>';
-    eventflow += '<div>'+formatPrice(p.eventFlow.end.mutation)+'</div>';
+    eventflow += '</div>';
+    $("#v"+suffix+"-eventflow-end").html(eventflow);
   }
 
-  $("#v-eventflow").html(eventflow);
+  //Start animations:
+  /*window.counterUp.default( $("#test123")[0], {
+      duration: 1000,
+      delay: 16,
+  } );*/
+
+  var demo = new countUp.CountUp('test123', 100);
+
 }
 function process_response(data)
 {
@@ -243,7 +295,6 @@ $(function(){
         $("#v-txtype").text(d.raw.TransactionType);
         $("#visualized-tab-pane-loader").remove();
         $("#visualized-tab-pane-content").removeClass("d-none");
-          console.log(formatted_currencies);
         //visualize left side
         visualize('',d,d.parsed);
         

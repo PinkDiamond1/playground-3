@@ -22,7 +22,6 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:label1" content="Est. reading time" />
   <meta name="twitter:data1" content="5 minutes" />--}}
-
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css' type='text/css' media='all' />
   <script src="/res/lib/jquery.min-3.6.0.js"></script>
   <script>$ = jQuery;</script>
