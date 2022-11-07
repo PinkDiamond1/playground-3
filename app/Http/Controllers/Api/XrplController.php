@@ -8,8 +8,14 @@ use XRPLWin\XRPLTxMutatationParser\TxMutationParser;
 
 class XrplController extends Controller
 {
-  public function tx(string $hash, ?string $reference_account = null)
+  public function tx(string $hash, Request $request)
   {
+    $request->validate([
+      'ref1' => 'nullable|string',
+      'ref2' => 'nullable|string',
+    ]);
+    $ref1 = $request->input('ref1');
+    $ref2 = $request->input('ref2');
     $client = new \XRPLWin\XRPL\Client([
       # Following values are defined by default, uncomment to override
       //'endpoint_reporting_uri' => 'http://s1.ripple.com:51234',
@@ -29,19 +35,23 @@ class XrplController extends Controller
     }
     $txresult = $tx->finalResult();
 
+    if(!$ref1)
+      $ref1 = $txresult->Account;
+
     $TxMutationParser = new TxMutationParser($txresult->Account, $txresult);
     $parsedTransaction = $TxMutationParser->result();
-
-    if(!$reference_account)
-      $reference_account = $txresult->Account;
-    
-    $parsedRefTransaction = null;
-    if($txresult->Account != $reference_account) {
-      $TxMutationRefParser = new TxMutationParser($reference_account, $txresult);
-      $parsedRefTransaction = $TxMutationRefParser->result();
-    }
-
     $participating_accounts = \array_keys($parsedTransaction['allBalanceChanges']);
+
+
+
+    $TxMutationRef1Parser = new TxMutationParser($ref1, $txresult);
+    $parsedRef1Transaction = $TxMutationRef1Parser->result();
+
+    $parsedRef2Transaction = null;
+    if($ref2) {
+      $TxMutationRef2Parser = new TxMutationParser($ref2, $txresult);
+      $parsedRef2Transaction = $TxMutationRef2Parser->result();
+    }
 
     $formatted_currencies = ['XRP' => 'XRP'];
     //format all currencies
@@ -54,10 +64,11 @@ class XrplController extends Controller
     }
 
     return response()->json([
-      'reference_account' => $reference_account,
+      //'ref1' => $ref1,
+      //'ref2' => $ref2,
       'participating_accounts' => $participating_accounts,
-      'parsed' => $parsedTransaction,
-      'parsed_ref' => $parsedRefTransaction,
+      'parsed1' => $parsedRef1Transaction,
+      'parsed2' => $parsedRef2Transaction,
       'formatted_currencies' => $formatted_currencies,
       'raw' => $txresult
     ]);

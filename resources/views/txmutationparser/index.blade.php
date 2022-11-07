@@ -14,8 +14,16 @@
             <button class="btn btn-warning" type="submit" id="button-addon2">Parse Tx</button>
           </div>
           <div class="mb-3">
-            <label class="form-label">Participants</label>
-            <div id="form-participating_accounts">
+            <label class="form-label">Participants (left)</label>
+            <div id="form-participating_accounts1">
+              <div class="spinner-border spinner-border-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Participants (right)</label>
+            <div id="form-participating_accounts2">
               <div class="spinner-border spinner-border-sm" role="status">
                 <span class="visually-hidden">Loading...</span>
               </div>
@@ -33,10 +41,10 @@
       <button class="nav-link active" id="visualized-tab" data-bs-toggle="tab" data-bs-target="#visualized-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Visualized</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="parsed-tab" data-bs-toggle="tab" data-bs-target="#parsed-tab-pane" type="button" role="tab" aria-controls="parsed-tab-pane" aria-selected="false"><i class="fa-solid fa-code"></i> Parsed</button>
+      <button class="nav-link" id="parsed1-tab" data-bs-toggle="tab" data-bs-target="#parsed1-tab-pane" type="button" role="tab" aria-controls="parsed1-tab-pane" aria-selected="false"><i class="fa-solid fa-code"></i> Parsed (left)</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link d-none" id="parsedref-tab" data-bs-toggle="tab" data-bs-target="#parsedref-tab-pane" type="button" role="tab" aria-controls="parsedref-tab-pane" aria-selected="false"><i class="fa-solid fa-code"></i> Parsed perspective</button>
+      <button class="nav-link d-none" id="parsed2-tab" data-bs-toggle="tab" data-bs-target="#parsed2-tab-pane" type="button" role="tab" aria-controls="parsed2-tab-pane" aria-selected="false"><i class="fa-solid fa-code"></i> Parsed (right)</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="tx-tab" data-bs-toggle="tab" data-bs-target="#tx-tab-pane" type="button" role="tab" aria-controls="tx-tab-pane" aria-selected="false"><i class="fa-solid fa-code"></i> Raw Transaction</button>
@@ -45,7 +53,6 @@
   <div class="tab-content mb-5">
     <div class="tab-pane fade show active" id="visualized-tab-pane" role="tabpanel" aria-labelledby="visualized-tab" tabindex="0">
      
-  <div id="test123">1.00000012</div>
       <div class="d-flex justify-content-center" id="visualized-tab-pane-loader">
          <div class="spinner-border text-light" role="status">
           <span class="visually-hidden">Loading...</span>
@@ -58,60 +65,10 @@
         <table class="table table-borderless table-sm text-light">
           <tr>
             <td width="50%">
-              <div class="box mb-3">
-                <div class="box-title text-start p-1">
-                  <span class="text-uppercase text-muted "><i class="fa-solid fa-angle-left small"></i>Initiator<i class="fa-solid fa-angle-right text-muted small"></i></span>
-                  <span id="v-self"></span>
-                  <div id="v-type" class="badge rounded-pill text-bg-success float-end">...</div>
-                </div>
-
-                <div class="p-1 text-start">
-                  <table class="table table-borderless table-sm">
-                    <tr>
-                      <td width="50%" valign="bottom">
-                        <div class="text-uppercase text-muted text-end small">Balance changes <i class="fa-solid fa-angle-right text-muted small"></i> Value <i class="fa-solid fa-angle-down small"></i></div>
-                      </td>
-                      <td width="50%" valign="bottom">
-                        <div class="text-uppercase text-muted text-start small">Currency <i class="fa-solid fa-angle-down small"></i></div>
-                      </td>
-                    </tr>
-                  </table>
-                  <div id="v-selfbalancechanges"></div>
-                  <div class="text-end box-footer">
-                    <div class="small text-uppercase"><i class="fa-solid fa-angle-left text-muted small"></i>Status : pending<i class="fa-solid fa-angle-right text-muted small"></i> </div>
-                  </div>
-                </div>
-              </div>{{--/end .box--}}
+              @include('txmutationparser.components.main_box',['title' => 'Ref 1 (Initiator)', 'suffix' => 'ref1'])
             </td>
             <td width="50%">
-              
-
-              <div class="box mb-3">
-                <div class="box-title text-start p-1">
-                  <span class="text-uppercase text-muted "><i class="fa-solid fa-angle-left small"></i>Perspective<i class="fa-solid fa-angle-right text-muted small"></i></span>
-                  <span id="vref-self"></span>
-                  <div id="vref-type" class="badge rounded-pill text-bg-success float-end">...</div>
-                </div>
-
-                <div class="p-1 text-start">
-                  <table class="table table-borderless table-sm">
-                    <tr>
-                      <td width="50%" valign="bottom">
-                        <div class="text-uppercase text-muted text-end small">Balance changes <i class="fa-solid fa-angle-right text-muted small"></i> Value <i class="fa-solid fa-angle-down small"></i></div>
-                      </td>
-                      <td width="50%" valign="bottom">
-                        <div class="text-uppercase text-muted text-start small">Currency <i class="fa-solid fa-angle-down small"></i></div>
-                      </td>
-                    </tr>
-                  </table>
-                  <div id="vref-selfbalancechanges"></div>
-                  <div class="text-end box-footer">
-                    <div class="small text-uppercase"><i class="fa-solid fa-angle-left text-muted small"></i>Status : pending<i class="fa-solid fa-angle-right text-muted small"></i> </div>
-                  </div>
-                </div>
-              </div>{{--/end .box--}}
-
-
+              @include('txmutationparser.components.main_box',['title' => 'Ref 2', 'suffix' => 'ref2'])
             </td>
           </tr>
           <tr>
@@ -126,27 +83,27 @@
           </tr>
           {{--event flow: start--}}
           <tr>
-            <td><div id="v-eventflow-start"></div></td>
-            <td><div id="vref-eventflow-start"></div></td>
+            <td><div id="vref1-eventflow-start"></div></td>
+            <td><div id="vref2-eventflow-start"></div></td>
           </tr>
           <tr>
-            <td><div id="v-eventflow-intermediate"></div></td>
-            <td><div id="vref-eventflow-intermediate"></div></td>
+            <td><div id="vref1-eventflow-intermediate"></div></td>
+            <td><div id="vref2-eventflow-intermediate"></div></td>
           </tr>
           <tr>
-            <td><div id="v-eventflow-end"></div></td>
-            <td><div id="vref-eventflow-end"></div></td>
+            <td><div id="vref1-eventflow-end"></div></td>
+            <td><div id="vref2-eventflow-end"></div></td>
           </tr>
         </table>
 
       </div>
 
     </div>
-    <div class="tab-pane fade" id="parsed-tab-pane" role="tabpanel" aria-labelledby="parsed-tab" tabindex="0">
-      <pre id="parsed-tab-pane-json-display" class="rounded p-4"></pre>
+    <div class="tab-pane fade" id="parsed1-tab-pane" role="tabpanel" aria-labelledby="parsed1-tab" tabindex="0">
+      <pre id="parsed1-tab-pane-json-display" class="rounded p-4"></pre>
     </div>
-    <div class="tab-pane fade" id="parsedref-tab-pane" role="tabpanel" aria-labelledby="parsedref-tab" tabindex="0">
-      <pre id="parsedref-tab-pane-json-display" class="rounded p-4"></pre>
+    <div class="tab-pane fade" id="parsed2-tab-pane" role="tabpanel" aria-labelledby="parsed2-tab" tabindex="0">
+      <pre id="parsed2-tab-pane-json-display" class="rounded p-4"></pre>
     </div>
     <div class="tab-pane fade" id="tx-tab-pane" role="tabpanel" aria-labelledby="tx-tab" tabindex="0">
       <pre id="tx-tab-pane-json-display" class="rounded p-4"></pre>
@@ -156,7 +113,7 @@
 </div>
 @endsection
 @push('head')
-<script src="/res/lib/countup/dist/countUp.min.js" type="module"></script>
+<script src="/res/lib/countup/dist/countUp.umd.js"></script>
 {{--<script src="https://unpkg.com/counterup2@2.0.2/dist/index.js"></script>
 https://jsfiddle.net/q9CuK/125/
 --}}
@@ -187,37 +144,154 @@ https://jsfiddle.net/q9CuK/125/
 @if($hash)
 
 <script>
+var tx;
 var formatted_currencies = {};
-function formatPrice(data)
+function formatPrice(data,id)
 {
   var positive = !(data.value.slice(0, 1) === '-');
-  var r = '<table class="table table-sm table-borderless p-1 price text-light"><tr>';
-    r += '<td width="50%" align="right" valign="top" class="text-'+(positive?'lime':'red')+'" id="">'+data.value+'</td>';
-    r += '<td align="left" valign="middle">'+formatCurrency(data.currency);
-    if(data.counterparty) {
-      r += '<div class="font-monospace small text-muted">'+xrpaddress_to_short(data.counterparty)+'</div>';
-    }
-    r += '</td>';
+  var decimals = 0;
+  var currency = formatCurrency(data.currency);
+
+    if(data.value.toString().split('.')[1])
+      decimals = Number(data.value.toString().split('.')[1]).toString().length;
+
+  var r = '<table class="table table-sm table-borderless p-1 text-light"><tr>';
+    r += '<td width="50%" align="right" valign="top" class="font-monospace price text-'+(positive?'lime':'red')+'" id="price_'+id+'_'+data.currency+(data.counterparty?data.counterparty:'XRP')+'" data-decimals="'+decimals+'" data-value="'+data.value+'">'+data.value+'</td>';
+    r += '<td align="left" valign="middle"><span title="'+data.currency+'">'+currency+'</span>';
+    r += '<span class="font-monospace small text-muted ms-1">';
+    r += data.counterparty ? xrpaddress_to_short(data.counterparty):'';
+    r += '</span></td>';
   r += '</tr></table>';
   return r;
-  return '<span class="text-'+(positive?'lime':'red')+'">'+(positive?'+':'')+''+data.value+' '+formatCurrency(data.currency)+'<span> '+(data.counterparty? xrpaddress_to_short(data.counterparty):'');
 }
 
 function formatCurrency(currency) {
   if(!formatted_currencies[currency])
-    return '<span title="'+currency+'">'+currency+'</span>';
-  return '<span title="'+currency+'">'+formatted_currencies[currency]+'</span>';
+    return currency;
+  return formatted_currencies[currency];
 }
+
+var animation_queue = [];
+function addToAnimationQueue(data)
+{
+  animation_queue.push(data);
+}
+function runAnimationQueue()
+{
+  $(".price").text('?');
+  console.log(animation_queue);
+  //step 1
+  $.each(animation_queue, function(k,v){
+
+    setTimeout(function() { 
+      var _c = '';
+      if(v.context) _c = v.context.currency+(v.context.counterparty?v.context.counterparty:'XRP');
+      if(v.name == 'start') {
+        //todo display start box
+        var c = new countUp.CountUp(
+          'price_start_mutation'+v.suffix+'_'+_c,
+          $("#price_start_mutation"+v.suffix+"_"+_c).data('value'),
+          {decimalPlaces: $("#price_start_mutation"+v.suffix+"_"+_c).data('decimals')}
+        );
+        c.start();
+
+        if($('#price_bc'+v.suffix+'_'+_c).length) {
+          var c2 = new countUp.CountUp(
+            'price_bc'+v.suffix+'_'+_c,
+            $("#price_bc"+v.suffix+"_"+_c).data('value'),
+            {decimalPlaces: $("#price_bc"+v.suffix+"_"+_c).data('decimals')}
+          );
+          c2.start();
+        }
+        
+      }
+
+      if(v.name == 'intermediate') {
+        //todo display intermediate box
+      }
+
+      if(v.name == 'intermediate_mutation_in') {
+        var c = new countUp.CountUp(
+          'price_intermediate_mutation_in'+v.suffix+'_'+_c,
+          $("#price_intermediate_mutation_in"+v.suffix+"_"+_c).data('value'),
+          {decimalPlaces: $("#price_intermediate_mutation_in"+v.suffix+"_"+_c).data('decimals')}
+        );
+        c.start();
+
+        if($('#price_bc'+v.suffix+'_'+_c).length) {
+          var c2 = new countUp.CountUp(
+            'price_bc'+v.suffix+'_'+_c,
+            $("#price_bc"+v.suffix+"_"+_c).data('value'),
+            {decimalPlaces: $("#price_bc"+v.suffix+"_"+_c).data('decimals')}
+          );
+          c2.start();
+        }
+      }
+
+      if(v.name == 'intermediate_mutation_out') {
+        var c = new countUp.CountUp(
+          'price_intermediate_mutation_out'+v.suffix+'_'+_c,
+          $("#price_intermediate_mutation_out"+v.suffix+"_"+_c).data('value'),
+          {decimalPlaces: $("#price_intermediate_mutation_out"+v.suffix+"_"+_c).data('decimals')}
+        );
+        c.start();
+
+        if($('#price_bc'+v.suffix+'_'+_c).length) {
+          var c2 = new countUp.CountUp(
+            'price_bc'+v.suffix+'_'+_c,
+            $("#price_bc"+v.suffix+"_"+_c).data('value'),
+            {decimalPlaces: $("#price_bc"+v.suffix+"_"+_c).data('decimals')}
+          );
+          c2.start();
+        }
+      }
+
+      if(v.name == 'end') {
+        //todo display start box
+        var c = new countUp.CountUp(
+          'price_end_mutation'+v.suffix+'_'+_c,
+          $("#price_end_mutation"+v.suffix+"_"+_c).data('value'),
+          {decimalPlaces: $("#price_end_mutation"+v.suffix+"_"+_c).data('decimals')}
+        );
+        c.start();
+
+        if($('#price_bc'+v.suffix+'_'+_c).length) {
+          var c2 = new countUp.CountUp(
+            'price_bc'+v.suffix+'_'+_c,
+            $("#price_bc"+v.suffix+"_"+_c).data('value'),
+            {decimalPlaces: $("#price_bc"+v.suffix+"_"+_c).data('decimals')}
+          );
+          c2.start();
+        }
+      }
+
+      if(v.name === 'fee' && v.suffix === '' && tx.raw.Fee) {
+        //apply fee
+        $("#v-status").text('Charging '+tx.raw.Fee+' drops fee').addClass('text-warning');
+        var c = new countUp.CountUp('price_bc_XRPXRP', $('#price_bc_XRPXRP').data('value'), {decimalPlaces: $('#price_bc_XRPXRP').data('decimals'), startVal: $('#price_bc_XRPXRP').text()});
+        c.start();
+      }
+
+      if(v.name == 'complete') {
+        $("#v-status").text('Complete').removeClass('text-warning').addClass('text-lime');
+      }
+
+    }, (v.step*2600));
+  });
+}
+
+//test this todo: http://playground.test/play/xrpl-transaction-mutation-parser?hash=284A52AE29D0A6B69822AEFBAE68D2C900E2B516E645BF6DD62536E0BF6EBF24&ref1=rfsK8pNsNeGA8nYWM3PzoRxMRHeAyEtNjN&ref2=rBHdammEERq7nxvHkzRzCUu872k3uQYVvg
+
 function visualize(suffix,data,p)
 {
-
+  
   $("#v"+suffix+"-self").text(p.self.account);
   $("#v"+suffix+"-type").text(p.type);
 
   //Balance changes:
   var balchanges = '';
   $.each(p.self.balanceChanges,function(k,v){
-    balchanges += '<div>'+formatPrice(v)+'</div>';
+    balchanges += '<div>'+formatPrice(v,'bc'+suffix)+'</div>';
   });
   $("#v"+suffix+"-selfbalancechanges").html(balchanges);
 
@@ -225,21 +299,25 @@ function visualize(suffix,data,p)
   if(p.eventFlow.start) {
     var eventflow = '<div class="box mx-3">';
     eventflow += '<div class="box-title text-start p-1"><span class="text-uppercase text-muted">Start <i class="fa-solid fa-angle-right text-muted small"></i></span> <span class="small">'+p.eventFlow.start.account+'</span></div>';
-    eventflow += '<div>'+formatPrice(p.eventFlow.start.mutation)+'</div>';
+    eventflow += '<div>'+formatPrice(p.eventFlow.start.mutation,'start_mutation'+suffix)+'</div>';
     eventflow += '</div>';
     $("#v"+suffix+"-eventflow-start").html(eventflow);
+    addToAnimationQueue({step:1,suffix:suffix,name:'start',context:p.eventFlow.start.mutation});
   }
-  if(p.eventFlow.intermediate) {
+  if(p.eventFlow.intermediate && (p.eventFlow.intermediate.mutations.in !== null || p.eventFlow.intermediate.mutations.out !== null)) {
+    addToAnimationQueue({step:2,suffix:suffix,name:'intermediate'});
     var eventflow = '<div class="box mx-3">';
     eventflow += '<div class="box-title text-start p-1"><span class="text-uppercase text-muted">Intermediate <i class="fa-solid fa-angle-right text-muted small"></i></span> <span class="small">'+p.eventFlow.intermediate.account+'</span></div>';
     if(p.eventFlow.intermediate.mutations) {
       if(p.eventFlow.intermediate.mutations.in) {
         eventflow += '<div class="text-uppercase text-muted text-center small"><i class="fa-solid fa-angle-left text-muted small"></i>In<i class="fa-solid fa-angle-right text-muted small"></i></div>';
-        eventflow += formatPrice(p.eventFlow.intermediate.mutations.in);
+        eventflow += formatPrice(p.eventFlow.intermediate.mutations.in,'intermediate_mutation_in'+suffix);
+        addToAnimationQueue({step:3,suffix:suffix,name:'intermediate_mutation_in',context:p.eventFlow.intermediate.mutations.in});
       }
       if(p.eventFlow.intermediate.mutations.out) {
         eventflow += '<div class="text-uppercase text-muted text-center small"><i class="fa-solid fa-angle-left text-muted small"></i>Out<i class="fa-solid fa-angle-right text-muted small"></i></div>';
-        eventflow += formatPrice(p.eventFlow.intermediate.mutations.out);
+        eventflow += formatPrice(p.eventFlow.intermediate.mutations.out,'intermediate_mutation_out'+suffix);
+        addToAnimationQueue({step:3,suffix:suffix,name:'intermediate_mutation_out',context:p.eventFlow.intermediate.mutations.out});
       }
     } else {
       alert('no int. mutations');
@@ -247,30 +325,30 @@ function visualize(suffix,data,p)
     //eventflow += p.eventFlow.end.mutation.value+" "+p.eventFlow.end.mutation.currency;
     eventflow += '</div>';
     $("#v"+suffix+"-eventflow-intermediate").html(eventflow);
+    
   }
   if(p.eventFlow.end) {
     var eventflow = '<div class="box mx-3">';
     eventflow += '<div class="box-title text-start p-1"><span class="text-uppercase text-muted">End <i class="fa-solid fa-angle-right text-muted small"></i></span> <span class="small">'+p.eventFlow.end.account+'</span></div>';
-    eventflow += '<div>'+formatPrice(p.eventFlow.end.mutation)+'</div>';
+    eventflow += '<div>'+formatPrice(p.eventFlow.end.mutation,'end_mutation'+suffix)+'</div>';
     eventflow += '</div>';
     $("#v"+suffix+"-eventflow-end").html(eventflow);
+    addToAnimationQueue({step:4,suffix:suffix,name:'end',context:p.eventFlow.end.mutation});
+    addToAnimationQueue({step:5,suffix:suffix,name:'fee'});
+    addToAnimationQueue({step:6,suffix:suffix,name:'complete'});
   }
 
-  //Start animations:
-  /*window.counterUp.default( $("#test123")[0], {
-      duration: 1000,
-      delay: 16,
-  } );*/
-
-  var demo = new countUp.CountUp('test123', 100);
-
+  
+  //TEST animation:
+  //var demo = new countUp.CountUp('test123', 0.00000012, {decimalPlaces: 8});
+  //demo.start()
 }
 function process_response(data)
 {
-  new JsonEditor('#parsed-tab-pane-json-display',data.parsed,{editable:false});
-  if(data.parsed_ref) {
-    new JsonEditor('#parsedref-tab-pane-json-display',data.parsed_ref,{editable:false});
-    $("#parsedref-tab").removeClass('d-none');
+  new JsonEditor('#parsed1-tab-pane-json-display',data.parsed1,{editable:false});
+  if(data.parsed2) {
+    new JsonEditor('#parsed2-tab-pane-json-display',data.parsed2,{editable:false});
+    $("#parsed2-tab").removeClass('d-none');
   }
     
   new JsonEditor('#tx-tab-pane-json-display',data.raw,{editable:false});
@@ -279,35 +357,40 @@ function process_participating_accounts(data)
 {
   var r = '';
   $.each(data.participating_accounts, function (k,v){
-    r += '<a class="badge rounded-pill text-bg-light text-decoration-none" href="{{route('play.txmutationparser.index',['hash' => $hash])}}&ref='+v+'" title="'+v+'">'+xrpaddress_to_short(v)+'</a> ';
+    r += '<a class="badge rounded-pill text-bg-'+(v == "{{$ref1}}" ? 'light':'dark')+' text-decoration-none" href="{{route('play.txmutationparser.index',['hash' => $hash])}}&ref1='+v+'&ref2={{$ref2}}" title="'+v+'">'+xrpaddress_to_short(v)+'</a> ';
   })
-  $("#form-participating_accounts").html(r);
+  $("#form-participating_accounts1").html(r);
+  var r = '';
+  $.each(data.participating_accounts, function (k,v){
+    r += '<a class="badge rounded-pill text-bg-'+(v == "{{$ref2}}" ? 'light':'dark')+' text-decoration-none" href="{{route('play.txmutationparser.index',['hash' => $hash])}}&ref2='+v+'&ref1={{$ref1}}" title="'+v+'">'+xrpaddress_to_short(v)+'</a> ';
+  })
+  $("#form-participating_accounts2").html(r);
 }
+
 $(function(){
   $.ajax({
       type:'GET',
       dataType: "json",
-      url: "{{route('api.tx',['hash' => $hash, 'reference_account' => $ref])}}",
+      url: "{!!route('api.tx',['hash' => $hash, 'ref1' => $ref1, 'ref2' => $ref2])!!}",
       data: {},
       success: function(d){
+        tx = d;
         formatted_currencies = d.formatted_currencies;
         process_participating_accounts(d);
         $("#v-txtype").text(d.raw.TransactionType);
         $("#visualized-tab-pane-loader").remove();
         $("#visualized-tab-pane-content").removeClass("d-none");
         //visualize left side
-        visualize('',d,d.parsed);
+        visualize('ref1',d,d.parsed1);
         
         
-        if(d.parsed_ref) {
+        if(d.parsed2) {
           //visualize right side
-          visualize('ref',d,d.parsed_ref);
-        }
-        else {
-          $("#vref").addClass('visually-hidden');
+          visualize('ref2',d,d.parsed2);
         }
 
         process_response(d);
+        runAnimationQueue();
       },
       error: function(a,d,c){
         alert('Failed to fetch tx info, try again later')

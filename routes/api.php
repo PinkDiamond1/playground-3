@@ -18,4 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 */
-Route::get('/tx/{hash}/{reference_account?}', [App\Http\Controllers\Api\XrplController::class, 'tx'])->name('api.tx');
+Route::get('/tx/{hash}', [App\Http\Controllers\Api\XrplController::class, 'tx'])->name('api.tx');
