@@ -7,7 +7,7 @@
 <div class="p-5 mb-4">
       <h3 class="card-title mb-4">Welcome to XRPLWin Playground</h3>
       <p class="card-text">
-      Here you can find packages we are working on, this page uses those packages to process and display XRPL data.
+      Here you can find packages and other tools we are working on, this page uses those packages to process and display XRPL data.
       <br>
       All packages are open source and available on our <i class="fab fa-github"></i> <a href="https://github.com/XRPLWin" target="_blank">GitHub</a> page.
       </p>
@@ -15,8 +15,32 @@
       <!--<a href="#" class="btn btn-primary">Get started</a>
       <a href="https://github.com/XRPLWin" target="_blank" class="btn btn-outline-light"><i class="fab fa-github"></i> GitHub</a>-->
     </div>
+{{--
 
 
+  <div class="card text-white bg-darker mb-4">
+    <div class="card-body p-4">
+      <div class="row">
+        <div class="col-12 col-md-6 mb-3">
+          <h5 class="card-title">NFT viewer</h5>
+          <p>
+            View NFT in all its glory.
+          </p>
+          
+          <div class="mt-4">
+            <a href="{{route('play.nftviewer.index')}}" class="btn btn-warning">Try it</a>
+          </div>
+           
+        </div>
+        <div class="col-12 col-md-6">
+          <a href="{{route('play.nftviewer.index')}}">
+            <img src="https://hooks.xrpl.org/images/hooks-builder.png" class="img-fluid rounded-3" alt="Screenshot" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+--}}
   <div class="card text-white bg-darker mb-4">
     <div class="card-body p-4">
       <div class="row">

@@ -131,10 +131,22 @@ function formatPrice(data,id,refaccount)
 
   var r = '<table class="table table-sm table-borderless p-1 text-light"><tr>';
     r += '<td width="50%" align="right" valign="top" class="py-0 font-monospace price text-'+(positive?'lime':'red')+'" id="price_'+id+'_'+data.currency+(data.counterparty?data.counterparty:'XRP')+refaccount+'" data-decimals="'+decimals+'" data-value="'+data.value+'">'+data.value+'</td>';
-    r += '<td align="left" valign="middle" class="py-0"><span title="'+data.currency+'">'+currency+'</span>';
+    r += '<td align="left" valign="middle" class="py-0"><div class="d-flex"><span title="'+data.currency+'">'+currency+'</span>';
     r += '<span class="font-monospace small text-muted ms-1">';
-    r += data.counterparty ? xrpaddress_to_short(data.counterparty):'';
-    r += '</span></td>';
+    if(data.counterparty) {
+      if (typeof data.counterparty === 'string' || data.counterparty instanceof String) {
+        r += data.counterparty ? xrpaddress_to_short(data.counterparty):'';
+      } else if(Array.isArray(data.counterparty )) {
+        $.each(data.counterparty, function(k,v){
+          r += xrpaddress_to_short(v)+'<br>';
+        });
+      } else {
+        alert('Unhandled counterparty detected');
+      }
+    }
+    
+    
+    r += '</span></div></td>';
   r += '</tr></table>';
   return r;
 }
@@ -156,9 +168,19 @@ function addToAnimationQueue(data)
 }
 function runAnimationQueue()
 {
+  $("#event_list").html('');
+  //#event_list
   //console.log(animation_queue);
   $.each(animation_queue, function(k,v){
     console.log(v);
+    setTimeout(function() {
+      var r = '<div>';
+
+      r += v.bc.counterparty+' '+v.bc.value;
+
+      r += '</div>';
+      $("#event_list").append(r);
+    },(v.step*500));
   });
 
   return;
@@ -323,8 +345,10 @@ function visualize(suffix,data,p)
   }
 
   //Queue balance changes
-  $.each(p.self.balanceChanges,function(k,v){
-    addToAnimationQueueNew({step:(k+1),ref:p.self.account,bc:v});
+  var i = 0;
+  $.each(p.allBalanceChanges,function(k,v){
+    addToAnimationQueueNew({step:(i),ref:p.self.account,bc:v});
+    i++;
   });
 
   
@@ -346,7 +370,7 @@ function process_participating_accounts(data)
 {
   var r = '';
   $.each(data.participating_accounts, function (k,v){
-    r += '<a class="badge rounded-pill text-bg-'+(v == "{{$ref1}}" ? 'light':'dark')+' text-decoration-none" href="{{route('play.txmutationparser.index',['hash' => $hash])}}&ref1='+v+'&ref2={{$ref2}}" title="'+v+'">'+xrpaddress_to_short(v)+'</a> ';
+    r += '<a class="badge rounded-pill text-bg-'+(v == "{{$ref1}}" ? 'light':'dark')+' text-decoration-none" href="{{route('play.txmutationparser.index',['hash' => $hash])}}&ref1='+v+'" title="'+v+'">'+xrpaddress_to_short(v)+'</a> ';
   })
   $("#form-participating_accounts1").html(r);
 }
@@ -355,7 +379,7 @@ $(function(){
   $.ajax({
       type:'GET',
       dataType: "json",
-      url: "{!!route('api.tx',['hash' => $hash, 'ref1' => $ref1, 'ref2' => $ref2])!!}",
+      url: "{!!route('api.tx',['hash' => $hash, 'ref1' => $ref1])!!}",
       data: {},
       success: function(d){
         tx = d;

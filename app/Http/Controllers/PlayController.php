@@ -10,14 +10,19 @@ class PlayController extends Controller
   {
     $hash = $request->input('hash');
     if(!$hash)
-      $hash = 'E0382D408F1BD7835E86336B43EBD43C7543779BDECD406B0BC00BA7CB86CE13';
+      $hash = 'A357FD7C8F0BBE7120E62FD603ACBE98819BC623D5D12BD81AC68564393A7792';
     $ref1 = $request->input('ref1');
-    $ref2 = $request->input('ref2');
-    return view('txmutationparser.index', compact('hash','ref1','ref2'));
+    return view('txmutationparser.index', compact('hash','ref1'));
   }
 
   public function orderbookreader(Request $request)
   {
     return view('orderbookreader.index');
+  }
+
+  public function nftviewer(Request $request)
+  {
+    $address = $request->input('address');
+    return view('nftviewer.index', compact('address'));
   }
 }

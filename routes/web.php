@@ -20,3 +20,4 @@ Route::get('/', function () {
 
 Route::get('/play/xrpl-transaction-mutation-parser', [App\Http\Controllers\PlayController::class, 'txmutationparser'])->name('play.txmutationparser.index');
 Route::get('/play/xrpl-orderbook-reader', [App\Http\Controllers\PlayController::class, 'orderbookreader'])->name('play.orderbookreader.index');
+Route::get('/play/nft-viewer', [App\Http\Controllers\PlayController::class, 'nftviewer'])->name('play.nftviewer.index');

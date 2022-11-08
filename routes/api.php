@@ -19,3 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 */
 Route::get('/tx/{hash}', [App\Http\Controllers\Api\XrplController::class, 'tx'])->name('api.tx');
+Route::get('account_nfts/{address}', [App\Http\Controllers\Api\XrplController::class, 'account_nfts'])->name('api.account_nfts');
