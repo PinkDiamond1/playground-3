@@ -8,5 +8,4 @@ function ipfsuritourl(uri) {
     return 'https://ipfs.io/ipfs/'+uri.substring(7);
   }
   return uri;
-  alert(a);
 }
