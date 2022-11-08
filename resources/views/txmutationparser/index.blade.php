@@ -146,7 +146,7 @@ https://jsfiddle.net/q9CuK/125/
 <script>
 var tx;
 var formatted_currencies = {};
-function formatPrice(data,id)
+function formatPrice(data,id,refaccount)
 {
   var positive = !(data.value.slice(0, 1) === '-');
   var decimals = 0;
@@ -156,8 +156,8 @@ function formatPrice(data,id)
       decimals = Number(data.value.toString().split('.')[1]).toString().length;
 
   var r = '<table class="table table-sm table-borderless p-1 text-light"><tr>';
-    r += '<td width="50%" align="right" valign="top" class="font-monospace price text-'+(positive?'lime':'red')+'" id="price_'+id+'_'+data.currency+(data.counterparty?data.counterparty:'XRP')+'" data-decimals="'+decimals+'" data-value="'+data.value+'">'+data.value+'</td>';
-    r += '<td align="left" valign="middle"><span title="'+data.currency+'">'+currency+'</span>';
+    r += '<td width="50%" align="right" valign="top" class="py-0 font-monospace price text-'+(positive?'lime':'red')+'" id="price_'+id+'_'+data.currency+(data.counterparty?data.counterparty:'XRP')+refaccount+'" data-decimals="'+decimals+'" data-value="'+data.value+'">'+data.value+'</td>';
+    r += '<td align="left" valign="middle" class="py-0"><span title="'+data.currency+'">'+currency+'</span>';
     r += '<span class="font-monospace small text-muted ms-1">';
     r += data.counterparty ? xrpaddress_to_short(data.counterparty):'';
     r += '</span></td>';
@@ -185,7 +185,7 @@ function runAnimationQueue()
 
     setTimeout(function() { 
       var _c = '';
-      if(v.context) _c = v.context.currency+(v.context.counterparty?v.context.counterparty:'XRP');
+      if(v.context) _c = v.context.currency+(v.context.counterparty?v.context.counterparty:'XRP')+v.ref;
       if(v.name == 'start') {
         //todo display start box
         var c = new countUp.CountUp(
@@ -291,7 +291,7 @@ function visualize(suffix,data,p)
   //Balance changes:
   var balchanges = '';
   $.each(p.self.balanceChanges,function(k,v){
-    balchanges += '<div>'+formatPrice(v,'bc'+suffix)+'</div>';
+    balchanges += '<div>'+formatPrice(v,'bc'+suffix,p.self.account)+'</div>';
   });
   $("#v"+suffix+"-selfbalancechanges").html(balchanges);
 
@@ -299,25 +299,25 @@ function visualize(suffix,data,p)
   if(p.eventFlow.start) {
     var eventflow = '<div class="box mx-3">';
     eventflow += '<div class="box-title text-start p-1"><span class="text-uppercase text-muted">Start <i class="fa-solid fa-angle-right text-muted small"></i></span> <span class="small">'+p.eventFlow.start.account+'</span></div>';
-    eventflow += '<div>'+formatPrice(p.eventFlow.start.mutation,'start_mutation'+suffix)+'</div>';
+    eventflow += '<div>'+formatPrice(p.eventFlow.start.mutation,'start_mutation'+suffix,p.eventFlow.start.account)+'</div>';
     eventflow += '</div>';
     $("#v"+suffix+"-eventflow-start").html(eventflow);
-    addToAnimationQueue({step:1,suffix:suffix,name:'start',context:p.eventFlow.start.mutation});
+    addToAnimationQueue({step:1,suffix:suffix,name:'start',ref:p.eventFlow.start.account,context:p.eventFlow.start.mutation});
   }
   if(p.eventFlow.intermediate && (p.eventFlow.intermediate.mutations.in !== null || p.eventFlow.intermediate.mutations.out !== null)) {
-    addToAnimationQueue({step:2,suffix:suffix,name:'intermediate'});
+    addToAnimationQueue({step:2,suffix:suffix,name:'intermediate',ref:p.eventFlow.intermediate.account});
     var eventflow = '<div class="box mx-3">';
     eventflow += '<div class="box-title text-start p-1"><span class="text-uppercase text-muted">Intermediate <i class="fa-solid fa-angle-right text-muted small"></i></span> <span class="small">'+p.eventFlow.intermediate.account+'</span></div>';
     if(p.eventFlow.intermediate.mutations) {
       if(p.eventFlow.intermediate.mutations.in) {
         eventflow += '<div class="text-uppercase text-muted text-center small"><i class="fa-solid fa-angle-left text-muted small"></i>In<i class="fa-solid fa-angle-right text-muted small"></i></div>';
-        eventflow += formatPrice(p.eventFlow.intermediate.mutations.in,'intermediate_mutation_in'+suffix);
-        addToAnimationQueue({step:3,suffix:suffix,name:'intermediate_mutation_in',context:p.eventFlow.intermediate.mutations.in});
+        eventflow += formatPrice(p.eventFlow.intermediate.mutations.in,'intermediate_mutation_in'+suffix,p.eventFlow.intermediate.account);
+        addToAnimationQueue({step:3,suffix:suffix,name:'intermediate_mutation_in',ref:p.eventFlow.intermediate.account,context:p.eventFlow.intermediate.mutations.in});
       }
       if(p.eventFlow.intermediate.mutations.out) {
         eventflow += '<div class="text-uppercase text-muted text-center small"><i class="fa-solid fa-angle-left text-muted small"></i>Out<i class="fa-solid fa-angle-right text-muted small"></i></div>';
-        eventflow += formatPrice(p.eventFlow.intermediate.mutations.out,'intermediate_mutation_out'+suffix);
-        addToAnimationQueue({step:3,suffix:suffix,name:'intermediate_mutation_out',context:p.eventFlow.intermediate.mutations.out});
+        eventflow += formatPrice(p.eventFlow.intermediate.mutations.out,'intermediate_mutation_out'+suffix,p.eventFlow.intermediate.account);
+        addToAnimationQueue({step:3,suffix:suffix,name:'intermediate_mutation_out',ref:p.eventFlow.intermediate.account,context:p.eventFlow.intermediate.mutations.out});
       }
     } else {
       alert('no int. mutations');
@@ -330,12 +330,12 @@ function visualize(suffix,data,p)
   if(p.eventFlow.end) {
     var eventflow = '<div class="box mx-3">';
     eventflow += '<div class="box-title text-start p-1"><span class="text-uppercase text-muted">End <i class="fa-solid fa-angle-right text-muted small"></i></span> <span class="small">'+p.eventFlow.end.account+'</span></div>';
-    eventflow += '<div>'+formatPrice(p.eventFlow.end.mutation,'end_mutation'+suffix)+'</div>';
+    eventflow += '<div>'+formatPrice(p.eventFlow.end.mutation,'end_mutation'+suffix,p.eventFlow.end.account)+'</div>';
     eventflow += '</div>';
     $("#v"+suffix+"-eventflow-end").html(eventflow);
-    addToAnimationQueue({step:4,suffix:suffix,name:'end',context:p.eventFlow.end.mutation});
-    addToAnimationQueue({step:5,suffix:suffix,name:'fee'});
-    addToAnimationQueue({step:6,suffix:suffix,name:'complete'});
+    addToAnimationQueue({step:4,suffix:suffix,name:'end',ref:p.eventFlow.end.account,context:p.eventFlow.end.mutation});
+    addToAnimationQueue({step:5,suffix:suffix,name:'fee',ref:p.eventFlow.end.account});
+    addToAnimationQueue({step:6,suffix:suffix,name:'complete',ref:p.eventFlow.end.account});
   }
 
   
