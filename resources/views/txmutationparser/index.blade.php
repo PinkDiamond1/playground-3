@@ -14,16 +14,8 @@
             <button class="btn btn-warning" type="submit" id="button-addon2">Parse Tx</button>
           </div>
           <div class="mb-3">
-            <label class="form-label">Participants (left)</label>
+            <label class="form-label">View participant:</label>
             <div id="form-participating_accounts1">
-              <div class="spinner-border spinner-border-sm" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            </div>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Participants (right)</label>
-            <div id="form-participating_accounts2">
               <div class="spinner-border spinner-border-sm" role="status">
                 <span class="visually-hidden">Loading...</span>
               </div>
@@ -66,33 +58,15 @@
           <tr>
             <td width="50%">
               @include('txmutationparser.components.main_box',['title' => 'Ref 1 (Initiator)', 'suffix' => 'ref1'])
-            </td>
-            <td width="50%">
-              @include('txmutationparser.components.main_box',['title' => 'Ref 2', 'suffix' => 'ref2'])
-            </td>
-          </tr>
-          <tr>
-            <td>
               <h5>Event flow</h5>
               <h3><i class="fa-solid fa-angle-down"></i></h3>
+              <div id="vref1-eventflow-start"></div>
+              <div id="vref1-eventflow-intermediate"></div>
+              <div id="vref1-eventflow-end"></div>
             </td>
-            <td>
-              <h5>Event flow</h5>
-              <h3><i class="fa-solid fa-angle-down"></i></h3>
+            <td width="50%" id="event_list">
+              Waiting...
             </td>
-          </tr>
-          {{--event flow: start--}}
-          <tr>
-            <td><div id="vref1-eventflow-start"></div></td>
-            <td><div id="vref2-eventflow-start"></div></td>
-          </tr>
-          <tr>
-            <td><div id="vref1-eventflow-intermediate"></div></td>
-            <td><div id="vref2-eventflow-intermediate"></div></td>
-          </tr>
-          <tr>
-            <td><div id="vref1-eventflow-end"></div></td>
-            <td><div id="vref2-eventflow-end"></div></td>
           </tr>
         </table>
 
@@ -172,12 +146,22 @@ function formatCurrency(currency) {
 }
 
 var animation_queue = [];
-function addToAnimationQueue(data)
+function addToAnimationQueueNew(data)
 {
   animation_queue.push(data);
 }
+function addToAnimationQueue(data)
+{
+  //animation_queue.push(data);
+}
 function runAnimationQueue()
 {
+  //console.log(animation_queue);
+  $.each(animation_queue, function(k,v){
+    console.log(v);
+  });
+
+  return;
   $(".price").text('?');
   console.log(animation_queue);
   //step 1
@@ -297,7 +281,7 @@ function visualize(suffix,data,p)
 
   //Event flow:
   if(p.eventFlow.start) {
-    var eventflow = '<div class="box mx-3">';
+    var eventflow = '<div class="box mb-2">';
     eventflow += '<div class="box-title text-start p-1"><span class="text-uppercase text-muted">Start <i class="fa-solid fa-angle-right text-muted small"></i></span> <span class="small">'+p.eventFlow.start.account+'</span></div>';
     eventflow += '<div>'+formatPrice(p.eventFlow.start.mutation,'start_mutation'+suffix,p.eventFlow.start.account)+'</div>';
     eventflow += '</div>';
@@ -306,7 +290,7 @@ function visualize(suffix,data,p)
   }
   if(p.eventFlow.intermediate && (p.eventFlow.intermediate.mutations.in !== null || p.eventFlow.intermediate.mutations.out !== null)) {
     addToAnimationQueue({step:2,suffix:suffix,name:'intermediate',ref:p.eventFlow.intermediate.account});
-    var eventflow = '<div class="box mx-3">';
+    var eventflow = '<div class="box mb-2">';
     eventflow += '<div class="box-title text-start p-1"><span class="text-uppercase text-muted">Intermediate <i class="fa-solid fa-angle-right text-muted small"></i></span> <span class="small">'+p.eventFlow.intermediate.account+'</span></div>';
     if(p.eventFlow.intermediate.mutations) {
       if(p.eventFlow.intermediate.mutations.in) {
@@ -328,7 +312,7 @@ function visualize(suffix,data,p)
     
   }
   if(p.eventFlow.end) {
-    var eventflow = '<div class="box mx-3">';
+    var eventflow = '<div class="box mb-2">';
     eventflow += '<div class="box-title text-start p-1"><span class="text-uppercase text-muted">End <i class="fa-solid fa-angle-right text-muted small"></i></span> <span class="small">'+p.eventFlow.end.account+'</span></div>';
     eventflow += '<div>'+formatPrice(p.eventFlow.end.mutation,'end_mutation'+suffix,p.eventFlow.end.account)+'</div>';
     eventflow += '</div>';
@@ -337,6 +321,11 @@ function visualize(suffix,data,p)
     addToAnimationQueue({step:5,suffix:suffix,name:'fee',ref:p.eventFlow.end.account});
     addToAnimationQueue({step:6,suffix:suffix,name:'complete',ref:p.eventFlow.end.account});
   }
+
+  //Queue balance changes
+  $.each(p.self.balanceChanges,function(k,v){
+    addToAnimationQueueNew({step:(k+1),ref:p.self.account,bc:v});
+  });
 
   
   //TEST animation:
@@ -360,11 +349,6 @@ function process_participating_accounts(data)
     r += '<a class="badge rounded-pill text-bg-'+(v == "{{$ref1}}" ? 'light':'dark')+' text-decoration-none" href="{{route('play.txmutationparser.index',['hash' => $hash])}}&ref1='+v+'&ref2={{$ref2}}" title="'+v+'">'+xrpaddress_to_short(v)+'</a> ';
   })
   $("#form-participating_accounts1").html(r);
-  var r = '';
-  $.each(data.participating_accounts, function (k,v){
-    r += '<a class="badge rounded-pill text-bg-'+(v == "{{$ref2}}" ? 'light':'dark')+' text-decoration-none" href="{{route('play.txmutationparser.index',['hash' => $hash])}}&ref2='+v+'&ref1={{$ref1}}" title="'+v+'">'+xrpaddress_to_short(v)+'</a> ';
-  })
-  $("#form-participating_accounts2").html(r);
 }
 
 $(function(){
@@ -384,10 +368,10 @@ $(function(){
         visualize('ref1',d,d.parsed1);
         
         
-        if(d.parsed2) {
+        //if(d.parsed2) {
           //visualize right side
-          visualize('ref2',d,d.parsed2);
-        }
+        //  visualize('ref2',d,d.parsed2);
+        //}
 
         process_response(d);
         runAnimationQueue();
