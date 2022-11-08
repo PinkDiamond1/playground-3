@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8259ff55fc44c29930f8b98fb76e65f9",
+    "content-hash": "524f71274e328bacaef3b227eb0c8769",
     "packages": [
         {
             "name": "brick/math",
@@ -568,12 +568,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/AlexanderBuzz/xrpl-php.git",
-                "reference": "3699c8d01dafcbca4f18403bde4c3280e164b45a"
+                "reference": "9480a71136b2abb5dad38895525ce8d2a4ce022f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/AlexanderBuzz/xrpl-php/zipball/3699c8d01dafcbca4f18403bde4c3280e164b45a",
-                "reference": "3699c8d01dafcbca4f18403bde4c3280e164b45a",
+                "url": "https://api.github.com/repos/AlexanderBuzz/xrpl-php/zipball/9480a71136b2abb5dad38895525ce8d2a4ce022f",
+                "reference": "9480a71136b2abb5dad38895525ce8d2a4ce022f",
                 "shasum": ""
             },
             "require": {
@@ -619,7 +619,7 @@
                 "issues": "https://github.com/AlexanderBuzz/xrpl-php/issues",
                 "source": "https://github.com/AlexanderBuzz/xrpl-php/tree/master"
             },
-            "time": "2022-11-04T15:13:23+00:00"
+            "time": "2022-11-07T16:06:14+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -1016,16 +1016,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.38.0",
+            "version": "v9.39.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "abf198e443e06696af3f356b44de67c0fa516107"
+                "reference": "67e674709e1e7db14f304a871481f310822d68c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/abf198e443e06696af3f356b44de67c0fa516107",
-                "reference": "abf198e443e06696af3f356b44de67c0fa516107",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/67e674709e1e7db14f304a871481f310822d68c5",
+                "reference": "67e674709e1e7db14f304a871481f310822d68c5",
                 "shasum": ""
             },
             "require": {
@@ -1198,7 +1198,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-11-01T14:05:55+00:00"
+            "time": "2022-11-08T14:47:39+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -5684,16 +5684,16 @@
         },
         {
             "name": "xrplwin/xrpl",
-            "version": "v0.0.9",
+            "version": "v0.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/XRPLWin/XRPL.git",
-                "reference": "842787162169fcc805c536da0550758844b59410"
+                "reference": "7eacb89e4d88b53f54baaf25a6a6b4a61b35d2b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/XRPLWin/XRPL/zipball/842787162169fcc805c536da0550758844b59410",
-                "reference": "842787162169fcc805c536da0550758844b59410",
+                "url": "https://api.github.com/repos/XRPLWin/XRPL/zipball/7eacb89e4d88b53f54baaf25a6a6b4a61b35d2b7",
+                "reference": "7eacb89e4d88b53f54baaf25a6a6b4a61b35d2b7",
                 "shasum": ""
             },
             "require": {
@@ -5732,9 +5732,9 @@
             ],
             "support": {
                 "issues": "https://github.com/XRPLWin/XRPL/issues",
-                "source": "https://github.com/XRPLWin/XRPL/tree/v0.0.9"
+                "source": "https://github.com/XRPLWin/XRPL/tree/v0.0.10"
             },
-            "time": "2022-11-05T15:00:16+00:00"
+            "time": "2022-11-08T18:22:49+00:00"
         },
         {
             "name": "xrplwin/xrpl-orderbook-reader",
