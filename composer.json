@@ -10,7 +10,7 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "xrplwin/xrpl": "^0.0.9",
+        "xrplwin/xrpl": "^0.0.10",
         "xrplwin/xrpl-orderbook-reader": "^1.0",
         "xrplwin/xrpl-txmutationparser": "^0.0.1"
     },
