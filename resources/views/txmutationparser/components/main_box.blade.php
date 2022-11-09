@@ -4,13 +4,13 @@
 --}}
 <div class="box mb-3">
   <div class="box-title text-start p-1">
-    <span class="text-uppercase text-muted "><i class="fa-solid fa-angle-left small"></i>{{$title}}<i class="fa-solid fa-angle-right text-muted small"></i></span>
+    <span class="text-uppercase text-muted "><i class="fa-solid fa-angle-left small"></i><span id="v{{$suffix}}-type">...</span><i class="fa-solid fa-angle-right text-muted small"></i></span>
     <span id="v{{$suffix}}-self"></span>
-    <div id="v{{$suffix}}-type" class="badge rounded-pill text-bg-success float-end">...</div>
+    <div  class="badge rounded-pill text-bg-success float-end text-uppercase">{{$title}}</div>
   </div>
 
   <div class="p-1 text-start">
-    <table class="table table-borderless table-sm">
+    <table class="table table-borderless table-sm mb-0">
       <tr>
         <td width="50%" valign="bottom">
           <div class="text-uppercase text-muted text-end small">Events <i class="fa-solid fa-angle-right text-muted small"></i> Value <i class="fa-solid fa-angle-down small"></i></div>
@@ -21,7 +21,7 @@
       </tr>
     </table>
     <div id="v{{$suffix}}-selfevents"></div>
-    <table class="table table-borderless table-sm">
+    <table class="table table-borderless table-sm mb-0">
       <tr>
         <td width="50%" valign="bottom">
           <div class="text-uppercase text-muted text-end small">Balance changes <i class="fa-solid fa-angle-right text-muted small"></i> Value <i class="fa-solid fa-angle-down small"></i></div>

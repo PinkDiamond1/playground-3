@@ -11,8 +11,8 @@ class PlayController extends Controller
     $hash = $request->input('hash');
     if(!$hash)
       $hash = 'A357FD7C8F0BBE7120E62FD603ACBE98819BC623D5D12BD81AC68564393A7792';
-    $ref1 = $request->input('ref1');
-    return view('txmutationparser.index', compact('hash','ref1'));
+    $ref = $request->input('ref');
+    return view('txmutationparser.index', compact('hash','ref'));
   }
 
   public function orderbookreader(Request $request)

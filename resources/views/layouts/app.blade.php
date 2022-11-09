@@ -27,6 +27,7 @@
   <script>$ = jQuery;</script>
   <link href="/res/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <script src="/res/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src='/res/lib/bignumberjs/bignumber.min.js'></script>
   <link rel="stylesheet" href="/res/css.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

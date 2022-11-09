@@ -19,6 +19,7 @@
     var CountUp = /** @class */ (function () {
         function CountUp(target, endVal, options) {
             var _this = this;
+            this._target = target;
             this.endVal = endVal;
             this.options = options;
             this.version = '2.3.2';
@@ -30,7 +31,7 @@
                 useGrouping: true,
                 smartEasingThreshold: 999,
                 smartEasingAmount: 333,
-                separator: ',',
+                separator: ',', //,
                 decimal: '.',
                 prefix: '',
                 suffix: '',
@@ -131,7 +132,7 @@
             }
             this.el = (typeof target === 'string') ? document.getElementById(target) : target;
             if (this.el) {
-                this.printValue(this.startVal);
+                this.printValue(this.startVal);  
             }
             else {
                 this.error = '[CountUp] target is null or undefined';
@@ -209,7 +210,7 @@
                 this.paused = false;
                 this.rAF = requestAnimationFrame(this.count);
             }
-            else {
+            else {      
                 this.printValue(this.endVal);
             }
         };

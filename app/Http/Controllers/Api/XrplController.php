@@ -76,11 +76,10 @@ class XrplController extends Controller
   public function tx(string $hash, Request $request)
   {
     $request->validate([
-      'ref1' => 'nullable|string',
-      'ref2' => 'nullable|string',
+      'ref' => 'nullable|string',
     ]);
-    $ref1 = $request->input('ref1');
-    $ref2 = $request->input('ref2');
+    $ref = $request->input('ref');
+
     $client = new \XRPLWin\XRPL\Client([
       # Following values are defined by default, uncomment to override
       //'endpoint_reporting_uri' => 'http://s1.ripple.com:51234',
@@ -100,23 +99,21 @@ class XrplController extends Controller
     }
     $txresult = $tx->finalResult();
 
-    if(!$ref1)
-      $ref1 = $txresult->Account;
+    if(!$ref)
+      $ref = $txresult->Account;
 
     $TxMutationParser = new TxMutationParser($txresult->Account, $txresult);
     $parsedTransaction = $TxMutationParser->result();
     $participating_accounts = \array_keys($parsedTransaction['allBalanceChanges']);
 
-
-
-    $TxMutationRef1Parser = new TxMutationParser($ref1, $txresult);
-    $parsedRef1Transaction = $TxMutationRef1Parser->result();
-
-    $parsedRef2Transaction = null;
-    if($ref2) {
-      $TxMutationRef2Parser = new TxMutationParser($ref2, $txresult);
-      $parsedRef2Transaction = $TxMutationRef2Parser->result();
+    $parses = [];
+    foreach($participating_accounts as $pacc) {
+      $TxMutationParser = new TxMutationParser($pacc, $txresult);
+      $parses[$pacc] = $TxMutationParser->result();
     }
+
+
+ 
 
     $formatted_currencies = ['XRP' => 'XRP'];
     //format all currencies
@@ -132,8 +129,8 @@ class XrplController extends Controller
       //'ref1' => $ref1,
       //'ref2' => $ref2,
       'participating_accounts' => $participating_accounts,
-      'parsed1' => $parsedRef1Transaction,
-      'parsed2' => $parsedRef2Transaction,
+      'parsed' => $parses[$ref],
+      'parsedall' => $parses,
       'formatted_currencies' => $formatted_currencies,
       'raw' => $txresult
     ]);
