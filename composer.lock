@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "524f71274e328bacaef3b227eb0c8769",
+    "content-hash": "6d6b95fc8f9b48bfabb43ee112a6a22f",
     "packages": [
         {
             "name": "brick/math",
@@ -564,16 +564,16 @@
         },
         {
             "name": "gndlf/xrpl_php",
-            "version": "dev-master",
+            "version": "v0.4.0-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/AlexanderBuzz/xrpl-php.git",
-                "reference": "9480a71136b2abb5dad38895525ce8d2a4ce022f"
+                "reference": "3699c8d01dafcbca4f18403bde4c3280e164b45a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/AlexanderBuzz/xrpl-php/zipball/9480a71136b2abb5dad38895525ce8d2a4ce022f",
-                "reference": "9480a71136b2abb5dad38895525ce8d2a4ce022f",
+                "url": "https://api.github.com/repos/AlexanderBuzz/xrpl-php/zipball/3699c8d01dafcbca4f18403bde4c3280e164b45a",
+                "reference": "3699c8d01dafcbca4f18403bde4c3280e164b45a",
                 "shasum": ""
             },
             "require": {
@@ -589,7 +589,6 @@
                 "phpunit/phpunit": "^9",
                 "vimeo/psalm": "^4.23"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "files": [
@@ -617,9 +616,9 @@
             "description": "PHP Client for the XRP Ledger",
             "support": {
                 "issues": "https://github.com/AlexanderBuzz/xrpl-php/issues",
-                "source": "https://github.com/AlexanderBuzz/xrpl-php/tree/master"
+                "source": "https://github.com/AlexanderBuzz/xrpl-php/tree/v0.4.0-alpha"
             },
-            "time": "2022-11-07T16:06:14+00:00"
+            "time": "2022-11-04T15:13:23+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -5798,20 +5797,20 @@
         },
         {
             "name": "xrplwin/xrpl-txmutationparser",
-            "version": "v0.0.1",
+            "version": "v0.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/XRPLWin/XRPL-TxMutationParser.git",
-                "reference": "d7f81968870442e7b244e0310e41ab60cce9b735"
+                "reference": "1fec7906303c178929e6748b03658d6f09dbf864"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/XRPLWin/XRPL-TxMutationParser/zipball/d7f81968870442e7b244e0310e41ab60cce9b735",
-                "reference": "d7f81968870442e7b244e0310e41ab60cce9b735",
+                "url": "https://api.github.com/repos/XRPLWin/XRPL-TxMutationParser/zipball/1fec7906303c178929e6748b03658d6f09dbf864",
+                "reference": "1fec7906303c178929e6748b03658d6f09dbf864",
                 "shasum": ""
             },
             "require": {
-                "gndlf/xrpl_php": "dev-master",
+                "gndlf/xrpl_php": "v0.4.0-alpha",
                 "php": "^8.1.0",
                 "xrplwin/xrpl": "^0.0"
             },
@@ -5852,9 +5851,9 @@
             ],
             "support": {
                 "issues": "https://github.com/XRPLWin/XRPL-TxMutationParser/issues",
-                "source": "https://github.com/XRPLWin/XRPL-TxMutationParser/tree/v0.0.1"
+                "source": "https://github.com/XRPLWin/XRPL-TxMutationParser/tree/v0.0.2"
             },
-            "time": "2022-11-03T22:08:05+00:00"
+            "time": "2022-11-08T23:06:13+00:00"
         }
     ],
     "packages-dev": [

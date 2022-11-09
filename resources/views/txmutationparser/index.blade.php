@@ -293,7 +293,15 @@ function visualize(suffix,data,p)
   
   $("#v"+suffix+"-self").text(p.self.account);
   $("#v"+suffix+"-type").text(p.type);
-
+  //Events primary and secondary:
+  if(p.eventList.primary) {
+    var ev_primary = '<div>'+formatPrice(p.eventList.primary,'bc'+suffix,p.self.account)+'</div>';
+    $("#v"+suffix+"-selfevents").append(ev_primary);
+  }
+  if(p.eventList.secondary) {
+    var ev_secondary = '<div>'+formatPrice(p.eventList.secondary,'bc'+suffix,p.self.account)+'</div>';
+    $("#v"+suffix+"-selfevents").append(ev_secondary);
+  }
   //Balance changes:
   var balchanges = '';
   $.each(p.self.balanceChanges,function(k,v){

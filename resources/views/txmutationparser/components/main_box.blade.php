@@ -13,6 +13,17 @@
     <table class="table table-borderless table-sm">
       <tr>
         <td width="50%" valign="bottom">
+          <div class="text-uppercase text-muted text-end small">Events <i class="fa-solid fa-angle-right text-muted small"></i> Value <i class="fa-solid fa-angle-down small"></i></div>
+        </td>
+        <td width="50%" valign="bottom">
+          <div class="text-uppercase text-muted text-start small">Currency <i class="fa-solid fa-angle-down small"></i></div>
+        </td>
+      </tr>
+    </table>
+    <div id="v{{$suffix}}-selfevents"></div>
+    <table class="table table-borderless table-sm">
+      <tr>
+        <td width="50%" valign="bottom">
           <div class="text-uppercase text-muted text-end small">Balance changes <i class="fa-solid fa-angle-right text-muted small"></i> Value <i class="fa-solid fa-angle-down small"></i></div>
         </td>
         <td width="50%" valign="bottom">
