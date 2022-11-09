@@ -102,6 +102,9 @@ class XrplController extends Controller
     if(!$ref)
       $ref = $txresult->Account;
 
+    $TxMutationParserRef = new TxMutationParser($ref, $txresult);
+    $parsedTransactionRef = $TxMutationParserRef->result();
+
     $TxMutationParser = new TxMutationParser($txresult->Account, $txresult);
     $parsedTransaction = $TxMutationParser->result();
     $participating_accounts = \array_keys($parsedTransaction['allBalanceChanges']);
@@ -129,7 +132,7 @@ class XrplController extends Controller
       //'ref1' => $ref1,
       //'ref2' => $ref2,
       'participating_accounts' => $participating_accounts,
-      'parsed' => $parses[$ref],
+      'parsed' => $parsedTransactionRef,
       'parsedall' => $parses,
       'formatted_currencies' => $formatted_currencies,
       'raw' => $txresult

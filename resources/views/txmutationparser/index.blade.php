@@ -1,11 +1,6 @@
 @extends('layouts.app')
-
-
 @section('content')
-
 <div class="container pt-4">
-  <div id="maincanvaswrap" class="position-relative" style="min-height:3600px">
-  <canvas id="maincanvas" class="position-absolute" width="0" height="0"></canvas>
   <div class="card bg-lighter mb-3">
     <div class="card-body">
       <h5 class="card-title">XRPL Transaction Mutation Parser</h5>
@@ -23,13 +18,9 @@
               </div>
             </div>
           </div>
-
-          
         </form>
-
     </div>
   </div>
-
   <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
       <button class="nav-link active" id="visualized-tab" data-bs-toggle="tab" data-bs-target="#visualized-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Visualized</button>
@@ -42,8 +33,8 @@
     </li>
   </ul>
   <div class="tab-content mb-5">
-    <div class="tab-pane fade show active" id="visualized-tab-pane" role="tabpanel" aria-labelledby="visualized-tab" tabindex="0">
-     
+    <div class="tab-pane fade show active position-relative" id="visualized-tab-pane" role="tabpanel" aria-labelledby="visualized-tab" tabindex="0" style="min-height:3600px">
+      <canvas id="maincanvas" class="position-absolute" width="0" height="0"></canvas>
       <div class="d-flex justify-content-center" id="visualized-tab-pane-loader">
          <div class="spinner-border text-light" role="status">
           <span class="visually-hidden">Loading...</span>
@@ -79,7 +70,6 @@
       <pre id="tx-tab-pane-json-display" class="rounded p-4"></pre>
     </div>
   </div>
-</div>
 </div>
 @endsection
 @push('head')
@@ -135,7 +125,7 @@ https://jsfiddle.net/q9CuK/125/
 @if($hash)
 
 <script>
-var tx,ctx;
+var tx,ctx,cc;
 var formatted_currencies = {};
 
 function formatPrice(data,id,refaccount)
@@ -144,14 +134,11 @@ function formatPrice(data,id,refaccount)
   var decimals = 0;
   var currency = formatCurrency(data.currency);
 
-    if(data.value.toString().split('.')[1]) {
+  if(data.value.toString().split('.')[1]) {
     decimals = data.value.toString().split('.')[1].toString().length;
-    //alert(decimals+' = '+data.value.toString().split('.')[1]);
-    }
-      
-
+  }
   var r = '<table class="table table-sm table-borderless p-1 text-light mb-0"><tr>';
-    r += '<td width="50%" align="right" valign="top" class="py-0 font-monospace price text-'+(positive?'lime':'red')+'" id="price_'+id+'_'+data.currency+(data.counterparty?data.counterparty:'XRP')+refaccount+'" data-decimals="'+decimals+'" data-value="'+data.value+'" title="'+data.value+'">'+data.value+'</td>';
+    r += '<td width="50%" align="right" valign="top" class="py-0 font-monospace text-'+(positive?'lime':'red')+'"><span class="price" id="price_'+id+'_'+data.currency+(data.counterparty?data.counterparty:'XRP')+refaccount+'" data-decimals="'+decimals+'" data-value="'+data.value+'" title="'+data.value+'">'+data.value+'</span></td>';
     r += '<td align="left" valign="middle" class="py-0"><div class="d-flex"><span title="'+data.currency+'">'+currency+'</span>';
     r += '<span class="font-monospace small text-muted ms-1">';
     if(data.counterparty) {
@@ -179,23 +166,20 @@ function formatCurrency(currency) {
 }
 
 var animation_queue = [];
-function addToAnimationQueueNew(data)
-{
-  animation_queue.push(data);
-}
 function addToAnimationQueue(data)
 {
-  //animation_queue.push(data);
+  animation_queue.push(data);
 }
 function runAnimationQueue()
 {
   $(".price").text('?');
   $("#event_list").html('');
-  //#event_list
-  //console.log(animation_queue);
   step = 0;
   $.each(animation_queue, function(k,v){
     setTimeout(function() {
+      ctx.clearRect(0, 0, cc.width, cc.height);
+      $(".pa").removeClass('text-warning');
+      $("#pa_"+v.ref).addClass('text-warning');
       var cu = [];
       var parts = ['evref','bcref','start_mutationref','intermediate_mutation_inref','intermediate_mutation_outref','end_mutationref'];
       var r = '<div class="box box-gray mb-1">';
@@ -205,9 +189,8 @@ function runAnimationQueue()
 
       $.each(v.bc.balances, function(kk,vv){
         var _c = vv.currency+(vv.counterparty?vv.counterparty:'XRP')+v.ref;
-        var _c_flipped = vv.currency+v.ref+(vv.counterparty?vv.counterparty:'XRP');
+        var _c_flipped = vv.currency+(vv.counterparty?(v.ref+vv.counterparty):'XRP'+v.ref); //currency counterparty refaccount
         $("#event_list_"+k).append(formatPrice(vv,'eventlist',v.ref));
-   
         cu.push(
           new countUp.CountUp('price_eventlist_'+_c, $('#price_eventlist_'+_c).data('value'), {
             decimalPlaces: $('#price_eventlist_'+_c).data('decimals'),
@@ -215,12 +198,13 @@ function runAnimationQueue()
             separator:''
           })
         );
-        console.log('price_eventlist_'+_c,'price_evref_'+_c);
-        drawLine('price_eventlist_'+_c,'price_evref_'+_c);
+        drawLine('price_evref_'+_c_flipped,'price_eventlist_'+_c);
+        drawLine('price_bcref_'+_c_flipped,'price_eventlist_'+_c);
 
         
         $.each(parts,function(partk,partv) {
           if($('#price_'+partv+'_'+_c_flipped).length) {
+            drawLine('price_'+partv+'_'+_c_flipped,'price_eventlist_'+_c);
             cu.push(
               new countUp.CountUp('price_'+partv+'_'+_c_flipped, $('#price_'+partv+'_'+_c_flipped).data('value'), {
                 decimalPlaces: $('#price_'+partv+'_'+_c_flipped).data('decimals'),
@@ -234,7 +218,7 @@ function runAnimationQueue()
       //countup animations start:
       $.each(cu, function(a,c){c.start(function(){$("#"+this._target).html(this.options.endValOriginal)})});
       
-    },(v.step*1000));  //2500
+    },(v.step*2500));  //2500
     step = v.step;
   });
   // Finalize
@@ -245,7 +229,7 @@ function runAnimationQueue()
         $(v).text($(v).data('value'));
       }
     })
-  },(step*1000));
+  },((step+1)*2500));
 }
 
 function reverseObjectIntoArray(obj){
@@ -285,22 +269,18 @@ function visualize(suffix,data,p)
     eventflow += '<div>'+formatPrice(p.eventFlow.start.mutation,'start_mutation'+suffix,p.eventFlow.start.account)+'</div>';
     eventflow += '</div>';
     $("#v"+suffix+"-eventflow-start").html(eventflow);
-    addToAnimationQueue({step:1,suffix:suffix,name:'start',ref:p.eventFlow.start.account,context:p.eventFlow.start.mutation});
   }
   if(p.eventFlow.intermediate && (p.eventFlow.intermediate.mutations.in !== null || p.eventFlow.intermediate.mutations.out !== null)) {
-    addToAnimationQueue({step:2,suffix:suffix,name:'intermediate',ref:p.eventFlow.intermediate.account});
     var eventflow = '<div class="box mb-2">';
     eventflow += '<div class="box-title text-start p-1"><span class="text-uppercase text-muted">Intermediate <i class="fa-solid fa-angle-right text-muted small"></i></span> <span class="small">'+p.eventFlow.intermediate.account+'</span></div>';
     if(p.eventFlow.intermediate.mutations) {
       if(p.eventFlow.intermediate.mutations.in) {
         eventflow += '<div class="text-uppercase text-muted text-center small"><i class="fa-solid fa-angle-left text-muted small"></i>In<i class="fa-solid fa-angle-right text-muted small"></i></div>';
         eventflow += formatPrice(p.eventFlow.intermediate.mutations.in,'intermediate_mutation_in'+suffix,p.eventFlow.intermediate.account);
-        addToAnimationQueue({step:3,suffix:suffix,name:'intermediate_mutation_in',ref:p.eventFlow.intermediate.account,context:p.eventFlow.intermediate.mutations.in});
       }
       if(p.eventFlow.intermediate.mutations.out) {
         eventflow += '<div class="text-uppercase text-muted text-center small"><i class="fa-solid fa-angle-left text-muted small"></i>Out<i class="fa-solid fa-angle-right text-muted small"></i></div>';
         eventflow += formatPrice(p.eventFlow.intermediate.mutations.out,'intermediate_mutation_out'+suffix,p.eventFlow.intermediate.account);
-        addToAnimationQueue({step:3,suffix:suffix,name:'intermediate_mutation_out',ref:p.eventFlow.intermediate.account,context:p.eventFlow.intermediate.mutations.out});
       }
     } else {
       alert('no int. mutations');
@@ -316,16 +296,13 @@ function visualize(suffix,data,p)
     eventflow += '<div>'+formatPrice(p.eventFlow.end.mutation,'end_mutation'+suffix,p.eventFlow.end.account)+'</div>';
     eventflow += '</div>';
     $("#v"+suffix+"-eventflow-end").html(eventflow);
-    addToAnimationQueue({step:4,suffix:suffix,name:'end',ref:p.eventFlow.end.account,context:p.eventFlow.end.mutation});
-    addToAnimationQueue({step:5,suffix:suffix,name:'fee',ref:p.eventFlow.end.account});
-    addToAnimationQueue({step:6,suffix:suffix,name:'complete',ref:p.eventFlow.end.account});
   }
 
   //Queue balance changes
   var i = 0;
-  $.each(p.allBalanceChanges,function(k,v){
+  $.each(reverseObjectIntoArray(p.allBalanceChanges),function(k,v){
     //if(k !== '{{$ref}}') {
-      addToAnimationQueueNew({step:(i),ref:v.account,bc:v});
+      addToAnimationQueue({step:i,ref:v.account,bc:v});
       i++;
     //}
   });
@@ -341,18 +318,17 @@ function process_participating_accounts(data)
 {
   var r = '';
   $.each(data.participating_accounts, function (k,v){
-    r += '<a class="badge rounded-pill text-bg-'+(v == "{{$ref}}" ? 'light':'dark')+' text-decoration-none" href="{{route('play.txmutationparser.index',['hash' => $hash])}}&ref='+v+'" title="'+v+'">'+xrpaddress_to_short(v)+'</a> ';
+    r += '<a id="pa_'+v+'" class="pa badge rounded-pill text-bg-'+(v == "{{$ref}}" ? 'light':'dark')+' text-decoration-none" href="{{route('play.txmutationparser.index',['hash' => $hash])}}&ref='+v+'" title="'+v+'">'+xrpaddress_to_short(v)+'</a> ';
   })
   $("#form-participating_accounts1").html(r);
 }
 //draw line between two dom elements
 function drawLine(id1,id2)
 {
-  var parentPos = document.getElementById('maincanvaswrap').getBoundingClientRect();
+  var parentPos = document.getElementById('visualized-tab-pane').getBoundingClientRect();
   var cp = document.getElementById(id1);
-  if(!cp) {
-    return;
-  }
+  if(!cp) return;
+
   var childPos = cp.getBoundingClientRect();
   var relativePos = {};
 
@@ -362,9 +338,7 @@ function drawLine(id1,id2)
   relativePos.left = childPos.left - parentPos.left;
 
   var cp2 = document.getElementById(id2);
-  if(!cp2) {
-    return;
-  }
+  if(!cp2) return;
   var childPos2 = cp2.getBoundingClientRect();
   var relativePos2 = {};
 
@@ -376,22 +350,19 @@ function drawLine(id1,id2)
   ctx.beginPath();
   ctx.lineWidth = 1;
   ctx.strokeStyle = "#58829b"; // Green path
-  ctx.moveTo((relativePos.left+childPos.left), relativePos.top+10);
-  ctx.lineTo((relativePos2.left+childPos2.left), relativePos2.top+10);
+  ctx.moveTo((relativePos.left+(childPos.right - childPos.left))+3, relativePos.top+10);
+  //ctx.lineTo((relativePos2.left+childPos2.left), relativePos2.top+10);
+  ctx.lineTo(relativePos2.left-18, relativePos2.top+9);
+  //ctx.lineTo((relativePos2.left+(childPos.right - childPos.left)), relativePos2.top+10);
   ctx.stroke();
 }
 
 
 $(function(){
-  var c = document.getElementById("maincanvas");
-  c.width = $("#maincanvaswrap").width();
-  c.height = $("#maincanvaswrap").height();
-  ctx = c.getContext("2d");
-  /*ctx.beginPath();
-  ctx.moveTo(58, 420);
-  ctx.lineTo(1300, 1150);
-  ctx.stroke();*/
-
+  cc = document.getElementById("maincanvas");
+  cc.width = $("#visualized-tab-pane").width();
+  cc.height = $("#visualized-tab-pane").height();
+  ctx = cc.getContext("2d");
 
   $.ajax({
       type:'GET',
@@ -405,15 +376,7 @@ $(function(){
         $("#v-txtype").text(d.raw.TransactionType);
         $("#visualized-tab-pane-loader").remove();
         $("#visualized-tab-pane-content").removeClass("d-none");
-        //visualize left side
         visualize('ref',d,d.parsed);
-        
-        
-        //if(d.parsed2) {
-          //visualize right side
-        //  visualize('ref2',d,d.parsed2);
-        //}
-
         process_response(d);
         runAnimationQueue();
       },
@@ -423,7 +386,6 @@ $(function(){
       complete:function() {}
     });
 })
-
 </script>
 @endif
 @endpush
