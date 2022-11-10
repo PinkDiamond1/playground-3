@@ -42,8 +42,9 @@
       </div>
 
       <div id="visualized-tab-pane-content" class="d-none text-center">
-        <h2 id="v-txtype"></h2>
-
+        <div class="text-start align-middle mb-2">
+          <h2 id="v-txtype" class="d-inline-block me-3 my-0 align-middle"></h2><h6 id="v-txoutcome" id="TransactionResult" class="badge bg-success my-0 align-middle"></h3>
+        </div>
         <table class="table table-borderless table-sm text-light">
           <tr>
             <td width="50%">
@@ -376,6 +377,8 @@ $(function(){
         formatted_currencies = d.formatted_currencies;
         process_participating_accounts(d);
         $("#v-txtype").text(d.raw.TransactionType);
+        $("#v-txoutcome").text(d.raw.meta.TransactionResult);
+        if(d.raw.meta.TransactionResult !== 'tesSUCCESS') $("#v-txoutcome").removeClass('bg-success').addClass('bg-danger');
         $("#visualized-tab-pane-loader").remove();
         $("#visualized-tab-pane-content").removeClass("d-none");
         visualize('ref',d,d.parsed);

@@ -32,8 +32,8 @@
       </tr>
     </table>
     <div id="v{{$suffix}}-selfbalancechanges"></div>
-    <div class="text-end box-footer">
+    {{--<div class="text-end box-footer">
       <div class="small text-uppercase"><i class="fa-solid fa-angle-left text-muted small"></i>Status : <span id="v{{$suffix}}-status">pending</span><i class="fa-solid fa-angle-right text-muted small"></i> </div>
-    </div>
+    </div>--}}
   </div>
 </div>{{--/end .box--}}
