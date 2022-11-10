@@ -60,15 +60,15 @@
             Alternatively, you can be an Intermediate account if you are a regular key signer or if something is rippling through your account.
           </p>
           <div class="mt-4">
-            <a href="{{route('play.txmutationparser.index')}}" class="btn btn-warning">Try it</a>
+            <a href="{{route('play.txmutationparser.index')}}?hash=A357FD7C8F0BBE7120E62FD603ACBE98819BC623D5D12BD81AC68564393A7792&ref=rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq" class="btn btn-warning">Try it</a>
             <a href="https://github.com/XRPLWin/XRPL-TxMutationParser" title="Source for PHP by XRPLWin" target="_blank" class="btn btn-outline-light"><i class="fab fa-github"></i> GitHub <i class="fa-brands fa-php"></i></a>
             <a href="https://github.com/XRPL-Labs/TxMutationParser" title="Source for NodeJS by XRPL Labs" target="_blank" class="btn btn-outline-light"><i class="fab fa-github"></i> GitHub <i class="fa-brands fa-node-js"></i></a>
           </div>
            
         </div>
         <div class="col-12 col-md-6">
-          <a href="{{route('play.orderbookreader.index')}}">
-            <img src="https://hooks.xrpl.org/images/hooks-builder.png" class="img-fluid rounded-3" alt="Screenshot" />
+          <a href="{{route('play.txmutationparser.index')}}?hash=A357FD7C8F0BBE7120E62FD603ACBE98819BC623D5D12BD81AC68564393A7792&ref=rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq">
+            <img src="/res/images/txmutationparser-ss.jpg" class="img-fluid rounded-3" alt="Screenshot" />
           </a>
         </div>
       </div>
@@ -88,15 +88,15 @@
           </p>
           
           <div class="mt-4">
-            <a href="{{route('play.orderbookreader.index')}}" class="btn btn-warning">Try it</a>
+            {{--<a href="{{route('play.orderbookreader.index')}}" class="btn btn-warning">Try it</a>--}}
             <a href="https://github.com/XRPLWin/XRPL-Orderbook-Reader" title="Source for PHP by XRPLWin" target="_blank" class="btn btn-outline-light"><i class="fab fa-github"></i> GitHub <i class="fa-brands fa-php"></i></a>
             <a href="https://github.com/XRPL-Labs/XRPL-Orderbook-Reader" title="Source for NodeJS by XRPL Labs" target="_blank" class="btn btn-outline-light"><i class="fab fa-github"></i> GitHub <i class="fa-brands fa-node-js"></i></a>
           </div>
            
         </div>
         <div class="col-12 col-md-6">
-          <a href="{{route('play.orderbookreader.index')}}">
-            <img src="https://hooks.xrpl.org/images/hooks-builder.png" class="img-fluid rounded-3" alt="Screenshot" />
+          <a href="#{{route('play.orderbookreader.index')}}">
+            <img src="/res/images/orderbook-ss.jpg" class="img-fluid rounded-3" alt="Screenshot" />
           </a>
         </div>
       </div>
