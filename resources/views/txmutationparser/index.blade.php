@@ -194,8 +194,7 @@ function runAnimationQueue()
         cu.push(
           new countUp.CountUp('price_eventlist_'+_c, $('#price_eventlist_'+_c).data('value'), {
             decimalPlaces: $('#price_eventlist_'+_c).data('decimals'),
-            endValOriginal: $('#price_eventlist_'+_c).data('value'),
-            separator:''
+            endValOriginal: $('#price_eventlist_'+_c).data('value')
           })
         );
         drawLine('price_evref_'+_c_flipped,'price_eventlist_'+_c);
@@ -208,15 +207,14 @@ function runAnimationQueue()
             cu.push(
               new countUp.CountUp('price_'+partv+'_'+_c_flipped, $('#price_'+partv+'_'+_c_flipped).data('value'), {
                 decimalPlaces: $('#price_'+partv+'_'+_c_flipped).data('decimals'),
-                endValOriginal: $('#price_'+partv+'_'+_c_flipped).data('value'),
-                separator:''
+                endValOriginal: $('#price_'+partv+'_'+_c_flipped).data('value')
               })
             );
           }
         });
       });
       //countup animations start:
-      $.each(cu, function(a,c){c.start(function(){$("#"+this._target).html(this.options.endValOriginal)})});
+      $.each(cu, function(a,c){c.start(function(){$("#"+this._target).html(numberWithCommas(this.options.endValOriginal))})});
       
     },(v.step*2500));  //2500
     step = v.step;
@@ -226,12 +224,14 @@ function runAnimationQueue()
     //show any left over '?' prices
     $(".price").each(function(k,v){
       if($(v).text() === '?') {
-        $(v).text($(v).data('value'));
+        $(v).text(numberWithCommas($(v).data('value')));
       }
     })
   },((step+1)*2500));
 }
-
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 function reverseObjectIntoArray(obj){
   var array = [];
   for (var i in obj) {
@@ -300,7 +300,7 @@ function visualize(suffix,data,p)
 
   //Queue balance changes
   var i = 0;
-  $.each(reverseObjectIntoArray(p.allBalanceChanges),function(k,v){
+  $.each(p.allBalanceChanges,function(k,v){
     //if(k !== '{{$ref}}') {
       addToAnimationQueue({step:i,ref:v.account,bc:v});
       i++;
@@ -352,7 +352,7 @@ function drawLine(id1,id2)
   ctx.strokeStyle = "#58829b"; // Green path
   ctx.moveTo((relativePos.left+(childPos.right - childPos.left))+3, relativePos.top+10);
   //ctx.lineTo((relativePos2.left+childPos2.left), relativePos2.top+10);
-  ctx.lineTo(relativePos2.left-18, relativePos2.top+9);
+  ctx.lineTo(relativePos2.left-120, relativePos2.top+9);
   //ctx.lineTo((relativePos2.left+(childPos.right - childPos.left)), relativePos2.top+10);
   ctx.stroke();
 }
