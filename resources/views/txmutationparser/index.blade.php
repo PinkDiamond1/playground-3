@@ -3,7 +3,7 @@
 <div class="container pt-4">
   <div class="card bg-lighter mb-3">
     <div class="card-body">
-      <h5 class="card-title">XRPL Transaction Mutation Parser</h5>
+      <h5 class="card-title">Visualize XRPL Transaction</h5>
       
         <form method="GET">
           <div class="input-group mb-3">
@@ -30,6 +30,9 @@
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="tx-tab" data-bs-toggle="tab" data-bs-target="#tx-tab-pane" type="button" role="tab" aria-controls="tx-tab-pane" aria-selected="false"><i class="fa-solid fa-code"></i> Raw Transaction</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="tx-tab" data-bs-toggle="tab" data-bs-target="#about-tab-pane" type="button" role="tab" aria-controls="about-tab-pane" aria-selected="false">About</button>
     </li>
   </ul>
   <div class="tab-content mb-5">
@@ -69,6 +72,29 @@
     </div>
     <div class="tab-pane fade" id="tx-tab-pane" role="tabpanel" aria-labelledby="tx-tab" tabindex="0">
       <pre id="tx-tab-pane-json-display" class="rounded p-4"></pre>
+    </div>
+    <div class="tab-pane fade" id="about-tab-pane" role="tabpanel" aria-labelledby="about-tab" tabindex="0">
+      
+      <div class="bg-dark p-3 rounded-3">
+          <p>
+            Parse XRPL transaction to <i>context aware</i> object for visual representation.
+          </p>
+          <p>
+            It takes a XRPL transaction (outcome, meta) and an XRPL account.
+            The XRPL account is the context from which the XPRL transaction is to be interpreted.
+          </p>
+          <p>
+            The account can be the sender, recipient, or an intermediate account.
+            An intermediate account applies if e.g. there's a trade happening, touching your own offer asynchronously.
+            You put up an offer and at some point down the road it gets (possibly partially) consumed.
+            Alternatively, you can be an Intermediate account if you are a regular key signer or if something is rippling through your account.
+          </p>
+          <div class="mt-4">
+            <a href="https://github.com/XRPLWin/XRPL-TxMutationParser" title="Source for PHP by XRPLWin" target="_blank" class="btn btn-outline-light"><i class="fab fa-github"></i> GitHub <i class="fa-brands fa-php"></i></a>
+            <a href="https://github.com/XRPL-Labs/TxMutationParser" title="Source for NodeJS by XRPL Labs" target="_blank" class="btn btn-outline-light"><i class="fab fa-github"></i> GitHub <i class="fa-brands fa-node-js"></i></a>
+          </div>
+      </div>
+
     </div>
   </div>
 </div>
