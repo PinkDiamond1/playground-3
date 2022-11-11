@@ -155,7 +155,7 @@ https://jsfiddle.net/q9CuK/125/
 var tx,ctx,cc;
 var formatted_currencies = {};
 
-function formatPrice(data,id,refaccount)
+function formatPrice(data,id,refaccount,is_xrpfeeexcluded)
 {
   var positive = !(data.value.slice(0, 1) === '-');
   var decimals = 0;
@@ -166,7 +166,11 @@ function formatPrice(data,id,refaccount)
   }
   var r = '<table class="table table-sm table-borderless p-1 text-light mb-0"><tr>';
     r += '<td width="50%" align="right" valign="top" class="py-0 font-monospace text-'+(positive?'lime':'red')+'"><span class="price" id="price_'+id+'_'+data.currency+(data.counterparty?data.counterparty:'XRP')+refaccount+'" data-decimals="'+decimals+'" data-value="'+data.value+'" title="'+data.value+'">'+data.value+'</span></td>';
-    r += '<td align="left" valign="middle" class="py-0"><div class="d-flex"><span title="'+data.currency+'">'+currency+'</span>';
+    r += '<td align="left" valign="middle" class="py-0"><div class="d-flex"><span title="'+data.currency+'">'+currency;
+    if(is_xrpfeeexcluded && currency === 'XRP') {
+      r += '<sup class="ms-1 text-warning">* Fee of '+tx.raw.Fee+' drops excluded</sup>'
+    }
+    r += '</span>';
     r += '<span class="font-monospace small text-muted ms-1">';
     if(data.counterparty) {
       if (typeof data.counterparty === 'string' || data.counterparty instanceof String) {
@@ -277,7 +281,7 @@ function visualize(suffix,data,p)
   $("#v"+suffix+"-type").text(p.type);
   //Events primary and secondary:
   if(p.eventList.primary) {
-    var ev_primary = '<div>'+formatPrice(p.eventList.primary,'ev'+suffix,p.self.account)+'</div>';
+    var ev_primary = '<div>'+formatPrice(p.eventList.primary,'ev'+suffix,p.self.account, p.self.feePayer)+'</div>';
     $("#v"+suffix+"-selfevents").append(ev_primary);
   }
   if(p.eventList.secondary) {
