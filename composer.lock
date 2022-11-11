@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b21e24ac7792ba27745d95c11a813ae",
+    "content-hash": "c49cdd2711e5b814f8be4b39976e9f20",
     "packages": [
         {
             "name": "brick/math",
@@ -5797,16 +5797,16 @@
         },
         {
             "name": "xrplwin/xrpl-txmutationparser",
-            "version": "v0.0.4",
+            "version": "v0.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/XRPLWin/XRPL-TxMutationParser.git",
-                "reference": "4a8b95bd8801f1b0683f1df62feb725c3517208f"
+                "reference": "66edfa5cc6067f94e52a791dec2dd7e69829295d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/XRPLWin/XRPL-TxMutationParser/zipball/4a8b95bd8801f1b0683f1df62feb725c3517208f",
-                "reference": "4a8b95bd8801f1b0683f1df62feb725c3517208f",
+                "url": "https://api.github.com/repos/XRPLWin/XRPL-TxMutationParser/zipball/66edfa5cc6067f94e52a791dec2dd7e69829295d",
+                "reference": "66edfa5cc6067f94e52a791dec2dd7e69829295d",
                 "shasum": ""
             },
             "require": {
@@ -5851,9 +5851,9 @@
             ],
             "support": {
                 "issues": "https://github.com/XRPLWin/XRPL-TxMutationParser/issues",
-                "source": "https://github.com/XRPLWin/XRPL-TxMutationParser/tree/v0.0.4"
+                "source": "https://github.com/XRPLWin/XRPL-TxMutationParser/tree/v0.0.5"
             },
-            "time": "2022-11-10T15:21:14+00:00"
+            "time": "2022-11-11T14:27:03+00:00"
         }
     ],
     "packages-dev": [
