@@ -269,12 +269,10 @@ function reverseObjectIntoArray(obj){
   array.reverse();
   return array;
 }
-//test this todo: http://playground.test/play/xrpl-transaction-mutation-parser?hash=284A52AE29D0A6B69822AEFBAE68D2C900E2B516E645BF6DD62536E0BF6EBF24&ref1=rfsK8pNsNeGA8nYWM3PzoRxMRHeAyEtNjN&ref2=rBHdammEERq7nxvHkzRzCUu872k3uQYVvg
-
 function visualize(suffix,data,p)
 {
   $("#v"+suffix+"-self").text(p.self.account);
-  if(p.self.fee_payer)
+  if(p.self.feePayer)
     $("#v"+suffix+"-fee").text('Pays fee');
   $("#v"+suffix+"-type").text(p.type);
   //Events primary and secondary:
