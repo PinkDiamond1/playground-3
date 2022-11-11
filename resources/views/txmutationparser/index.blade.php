@@ -274,6 +274,8 @@ function reverseObjectIntoArray(obj){
 function visualize(suffix,data,p)
 {
   $("#v"+suffix+"-self").text(p.self.account);
+  if(p.self.fee_payer)
+    $("#v"+suffix+"-fee").text('Pays fee');
   $("#v"+suffix+"-type").text(p.type);
   //Events primary and secondary:
   if(p.eventList.primary) {

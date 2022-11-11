@@ -5,11 +5,12 @@
 <div class="box mb-3">
   <div class="box-title text-start p-1">
     <span class="text-uppercase text-muted "><i class="fa-solid fa-angle-left small"></i><span id="v{{$suffix}}-type">...</span><i class="fa-solid fa-angle-right text-muted small"></i></span>
-    <span id="v{{$suffix}}-self"></span>
+    <span id="v{{$suffix}}-self"></span> <span id="v{{$suffix}}-fee" class="text-center text-danger"></span>
     <div  class="badge rounded-pill text-bg-success float-end text-uppercase">{{$title}}</div>
   </div>
 
   <div class="p-1 text-start">
+    
     <table class="table table-borderless table-sm mb-0">
       <tr>
         <td width="50%" valign="bottom">
